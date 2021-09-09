@@ -3,11 +3,22 @@
 
 <head>
   <title>Luo tunnus</title>
+  <meta name='viewport' content='width=device-width, initial-scale=1'>
+  <link rel='stylesheet' type='text/css' href='static/style.css'>
 </head>
 
 <body>
   <h1>Luo käyttäjätunnus</h1>
   <form action='/signup_handler' method='POST'>
+    Etunimi:
+    <input type='text' name='firstname' placeholder='Etunimi' required>
+    <br>
+    Sukunimi:
+    <input type='text' name='lastname' placeholder='Sukunimi' required>
+    <br>
+    Sähköposti:
+    <input type='email' name='email' placeholder='Sähköposti' required>
+    <br>
     Käyttäjätunnus:
     <input type='text' name='username' placeholder='Käyttäjätunnus' required>
     <br>
@@ -16,6 +27,7 @@
     <br>
     <input type='submit' value='Luo tunnus'>
   </form>
+  <a href="/login">Kirjaudu sisään</a>
 </body>
 
 </html>
