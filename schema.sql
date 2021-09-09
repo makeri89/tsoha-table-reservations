@@ -27,6 +27,11 @@ CREATE TABLE menus (
   restaurant INTEGER REFERENCES restaurants
 );
 
+CREATE TABLE menuCourses (
+  id SERIAL PRIMARY KEY,
+  course TEXT
+);
+
 CREATE TABLE menuItems (
   id SERIAL PRIMARY KEY,
   title TEXT,
@@ -34,11 +39,6 @@ CREATE TABLE menuItems (
   price INTEGER,
   menu INTEGER REFERENCES menus,
   course INTEGER REFERENCES menuCourses
-);
-
-CREATE TABLE menuCourses (
-  id SERIAL PRIMARY KEY,
-  course TEXT
 );
 
 CREATE TABLE reservations (
