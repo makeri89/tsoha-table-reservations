@@ -10,20 +10,20 @@
 <body>
   <h1>Luo käyttäjätunnus</h1>
   <form action='/signup_handler' method='POST'>
-    Etunimi:
-    <input type='text' name='firstname' placeholder='Etunimi' required>
+    <label for="firstname">Etunimi:</label>
+    <input type='text' name='firstname' placeholder='Etunimi' id='firstname' required>
     <br>
-    Sukunimi:
-    <input type='text' name='lastname' placeholder='Sukunimi' required>
+    <label for="lastname">Sukunimi:</label>
+    <input type='text' name='lastname' placeholder='Sukunimi' id='lastname' required>
     <br>
-    Sähköposti:
-    <input type='email' name='email' placeholder='Sähköposti' required>
+    <label for="email">Sähköposti:</label>
+    <input type='email' name='email' placeholder='Sähköposti' id='email' required>
     <br>
-    Käyttäjätunnus:
-    <input type='text' name='username' placeholder='Käyttäjätunnus' required>
+    <label for="username">Käyttäjätunnus:</label>
+    <input type='text' name='username' placeholder='Käyttäjätunnus' id='username' required>
     <br>
-    Salasana:
-    <input type='password' name='password' placeholder='Salasana' required>
+    <label for="password">Salasana:</label>
+    <input type='password' name='password' placeholder='Salasana' id='password' required>
     <br>
     <input type='submit' value='Luo tunnus'>
   </form>

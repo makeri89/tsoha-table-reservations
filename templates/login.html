@@ -10,11 +10,11 @@
 <body>
   <h1>Kirjaudu sisään</h1>
   <form action='/login_handler' method='POST'>
-    Käyttäjätunnus:
-    <input type='text' name='username'>
+    <label for="username">Käyttäjätunnus:</label>
+    <input type='text' name='username' id='username'>
     <br>
-    Salasana:
-    <input type="password" name='password'>
+    <label for="password">Salasana:</label>
+    <input type="password" name='password' id='passsword'>
     <br>
     <input type="submit" value='Kirjaudu'>
   </form>
