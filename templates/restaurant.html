@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang='fi'>
+<head>
+  <meta charset='UTF-8'>
+  <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+  <link rel='stylesheet' type='text/css' href='static/style.css'>
+  <title>{{ restaurant.name }}</title>
+</head>
+<body>
+  <a href='/'>Etusivu</a>
+  <h1>{{ restaurant.name }}</h1>
+  {{ restaurant.address }}
+  <h2>Menu</h2>
+  <ul>
+    {% for item in menu %}
+    <li>{{ item.title }}, {{ item.price }}e</li>
+    {% endfor %}
+  </ul>
+</body>
+</html>

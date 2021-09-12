@@ -2,8 +2,8 @@ CREATE TABLE IF NOT EXISTS users (
   id SERIAL PRIMARY KEY,
   first_name TEXT,
   last_name TEXT,
-  email TEXT,
-  username TEXT,
+  email TEXT UNIQUE,
+  username TEXT UNIQUE,
   password TEXT,
   isAdmin BOOLEAN,
   isRestaurant BOOLEAN
@@ -11,7 +11,7 @@ CREATE TABLE IF NOT EXISTS users (
 
 CREATE TABLE IF NOT EXISTS restaurants (
   id SERIAL PRIMARY KEY,
-  name TEXT,
+  name TEXT UNIQUE,
   owner INTEGER REFERENCES users,
   address TEXT
 );

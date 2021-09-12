@@ -76,9 +76,9 @@ def current_user():
     return result.fetchone()
 
 
-def get_restaurant_info(restaurant_name):
-    sql = 'SELECT * FROM restaurants WHERE name=:restaurant_name'
-    result = db.session.execute(sql, {'restaurant_name': restaurant_name})
+def get_restaurant_info(restaurant_id):
+    sql = 'SELECT * FROM restaurants WHERE id=:restaurant_id'
+    result = db.session.execute(sql, {'restaurant_id': restaurant_id})
     return result.fetchone()
 
 
@@ -86,4 +86,25 @@ def get_user_restaurant():
     user = current_user()
     sql = 'SELECT * FROM restaurants WHERE owner=:user_id'
     result = db.session.execute(sql, {'user_id': user.id})
+    return result.fetchall()
+
+
+def get_all_restaurants():
+    sql = 'SELECT * FROM restaurants'
+    result = db.session.execute(sql)
+    return result.fetchall()
+
+
+def get_restaurant_tables(restaurant):
+    sql = 'SELECT * FROM tables WHERE restaurant=:restaurant_id'
+    result = db.session.execute(sql, {'restaurant_id': restaurant.id})
+    return result.fetchall()
+
+
+def get_restaurant_menu(restaurant):
+    sql = ('SELECT M.title, M.description, M.price, C.course '
+           'FROM menuItems M, menuCourses C WHERE '
+           'M.menu=(SELECT id FROM menus WHERE restaurant=:restaurant_id) '
+           'and C.id=M.course')
+    result = db.session.execute(sql, {'restaurant_id': restaurant.id})
     return result.fetchall()

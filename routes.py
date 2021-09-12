@@ -1,11 +1,12 @@
 from flask import render_template, request, redirect
 from app import app
-from services import create_review, create_user, password_check, remove_tokens
+from services import create_review, create_user, get_restaurant_info, get_restaurant_menu, password_check, remove_tokens, get_all_restaurants
 
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    restaurants = get_all_restaurants()
+    return render_template('index.html', restaurants=restaurants)
 
 
 @app.route('/signup', methods=['GET', 'POST'])
@@ -50,3 +51,10 @@ def review():
         review_text = request.form['review-text']
         create_review(test_restaurant, stars, review_text)
         return redirect('/')
+
+
+@app.route('/restaurants/<int:id>')
+def restaurants(id):
+    restaurant = get_restaurant_info(id)
+    menu = get_restaurant_menu(restaurant)
+    return render_template('restaurant.html', restaurant=restaurant, menu=menu)

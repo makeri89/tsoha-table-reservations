@@ -11,6 +11,13 @@
   <h1>Pöytävaraus</h1>
   {% if session.user %}
   <h2>Tervetuloa, {{ session.username }}</h2>
+  <h3>Ravintolat</h3>
+  <ul>
+    {% for restaurant in restaurants %}
+    <li><a href=/restaurants/{{ restaurant.id }}>{{ restaurant.name }}</a></li>
+    {% endfor %}
+  </ul>
+  
   <a href="/logout">Kirjaudu ulos</a>
   <br>
   <a href='/review'>Tee arvio</a>
