@@ -9,10 +9,18 @@
 
 <body>
   <h1>Pöytävaraus</h1>
+  {% if session.user %}
+  <h2>Tervetuloa, {{ session.username }}</h2>
+  <a href="/logout">Kirjaudu ulos</a>
+  <br>
+  <a href='/review'>Tee arvio</a>
+  {% else %}
   <a href='/login'>Kirjaudu sisään</a>
   <br>
   <a href='/signup'>Luo tunnus</a>
   <br>
+  <a href='/review'>Tee arvio</a>
+  {% endif %}
 </body>
 
 </html>

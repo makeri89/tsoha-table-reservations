@@ -1,3 +1,4 @@
+# pylint: disable=wrong-import-position, unused-import
 from os import getenv
 from flask import Flask
 

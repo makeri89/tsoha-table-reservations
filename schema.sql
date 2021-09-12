@@ -1,4 +1,4 @@
-CREATE TABLE users (
+CREATE TABLE IF NOT EXISTS users (
   id SERIAL PRIMARY KEY,
   first_name TEXT,
   last_name TEXT,
@@ -9,30 +9,30 @@ CREATE TABLE users (
   isRestaurant BOOLEAN
 );
 
-CREATE TABLE restaurants (
+CREATE TABLE IF NOT EXISTS restaurants (
   id SERIAL PRIMARY KEY,
   name TEXT,
   owner INTEGER REFERENCES users,
   address TEXT
 );
 
-CREATE TABLE tables (
+CREATE TABLE IF NOT EXISTS tables (
   id SERIAL PRIMARY KEY,
   size INTEGER,
   restaurant INTEGER REFERENCES restaurants
 );
 
-CREATE TABLE menus (
+CREATE TABLE IF NOT EXISTS menus (
   id SERIAL PRIMARY KEY,
   restaurant INTEGER REFERENCES restaurants
 );
 
-CREATE TABLE menuCourses (
+CREATE TABLE IF NOT EXISTS menuCourses (
   id SERIAL PRIMARY KEY,
   course TEXT
 );
 
-CREATE TABLE menuItems (
+CREATE TABLE IF NOT EXISTS menuItems (
   id SERIAL PRIMARY KEY,
   title TEXT,
   description TEXT,
@@ -41,7 +41,7 @@ CREATE TABLE menuItems (
   course INTEGER REFERENCES menuCourses
 );
 
-CREATE TABLE reservations (
+CREATE TABLE IF NOT EXISTS reservations (
   id SERIAL PRIMARY KEY,
   restaurant INTEGER REFERENCES restaurants,
   guest INTEGER REFERENCES users,
@@ -53,10 +53,11 @@ CREATE TABLE reservations (
   createdAt TIMESTAMP
 );
 
-CREATE TABLE reviews (
+CREATE TABLE IF NOT EXISTS reviews (
   id SERIAL PRIMARY KEY,
   restaurant INTEGER REFERENCES restaurants,
   guest INTEGER REFERENCES users,
+  stars INTEGER,
   review TEXT,
   createdAt TIMESTAMP
 );
