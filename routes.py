@@ -5,8 +5,8 @@ from services import create_review, create_user, get_restaurant_info, get_restau
 
 @app.route('/')
 def index():
-    restaurants = get_all_restaurants()
-    return render_template('index.html', restaurants=restaurants)
+    all_restaurants = get_all_restaurants()
+    return render_template('index.html', restaurants=all_restaurants)
 
 
 @app.route('/signup', methods=['GET', 'POST'])
