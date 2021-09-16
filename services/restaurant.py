@@ -1,5 +1,4 @@
 # pylint: disable=import-error
-from flask import session
 from services.user import is_restaurant
 from db import db
 
@@ -39,20 +38,9 @@ def add_table(restaurant_id, size):
         db.session.commit()
 
 
-def create_reservation(restaurant_id, date, start_time, pax, allergies, wishes):
-    if session['user_id']:
-        user_id = session['user_id']
-        sql = ('INSERT INTO reservations '
-               '(restaurant, guest, date, startTime, '
-               'pax, allergies, wishes, createdAt) '
-               'VALUES (:restaurant_id, :user_id, :date, '
-               ':startTime, :pax, :allergies, :wishes, NOW()')
-        db.session.execute(sql, {
-            'restaurant_id': restaurant_id,
-            'user_id': user_id,
-            'date': date,
-            'startTime': start_time,
-            'pax': pax,
-            'allergies': allergies,
-            'wishes': wishes})
-        db.session.commit()
+def get_capacity(restaurant_id):
+    sql = ('SELECT size, COUNT(size) FROM tables '
+           'WHERE restaurant=:restaurant_id '
+           'GROUP BY size ORDER BY size')
+    result = db.session.execute(sql, {'restaurant_id': restaurant_id})
+    return result.fetchall()

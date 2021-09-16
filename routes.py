@@ -1,10 +1,10 @@
 from flask import render_template, request, redirect
 from app import app
-from services.user import create_user, password_check
+from services.user import create_user
 from services.restaurant import get_restaurant_info, get_restaurant_menu, get_all_restaurants
 from services.search import search
 from services.review import create_review
-from services.auth import remove_tokens
+from services.auth import remove_tokens, password_check
 
 
 @app.route('/')
@@ -72,3 +72,12 @@ def result():
     query = request.args['query']
     search_result = search(query)
     return render_template('result.html', results=search_result)
+
+
+@app.route('/restaurants/reservation/<int:id>', methods=['GET', 'POST'])
+def reservation(id):
+    restaurant = get_restaurant_info(id)
+    if request.method == 'GET':
+        return render_template('reservation.html')
+    if request.method == 'POST':
+        pass

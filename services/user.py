@@ -1,6 +1,6 @@
 # pylint: disable=import-error
 from flask import session
-from werkzeug.security import check_password_hash, generate_password_hash
+from werkzeug.security import generate_password_hash
 from db import db
 
 
@@ -20,21 +20,6 @@ def create_user(firstname, lastname, email, username, password):
         'password': hashed_pw
     })
     db.session.commit()
-
-
-def password_check(username, password):
-    sql = 'SELECT id, password FROM users WHERE username=:username'
-    result = db.session.execute(sql, {'username': username})
-    user = result.fetchone()
-    if not user:
-        # TODO: better error handling
-        return False
-    hash_value = user.password
-    if check_password_hash(hash_value, password):
-        session['user_id'] = user.id
-        session['username'] = username
-        return True
-    return False
 
 
 def is_admin():
