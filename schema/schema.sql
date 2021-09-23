@@ -13,7 +13,8 @@ CREATE TABLE IF NOT EXISTS restaurants (
   id SERIAL PRIMARY KEY,
   name TEXT UNIQUE,
   owner INTEGER REFERENCES users,
-  address TEXT
+  address TEXT,
+  openingHours TEXT[][]
 );
 
 CREATE TABLE IF NOT EXISTS tables (
@@ -50,7 +51,8 @@ CREATE TABLE IF NOT EXISTS reservations (
   pax INTEGER,
   allergies TEXT,
   wishes TEXT,
-  createdAt TIMESTAMP
+  createdAt TIMESTAMP,
+  tableId INTEGER REFERENCES tables
 );
 
 CREATE TABLE IF NOT EXISTS reviews (

@@ -78,6 +78,6 @@ def result():
 def reservation(id):
     restaurant = get_restaurant_info(id)
     if request.method == 'GET':
-        return render_template('reservation.html')
+        return render_template('reservation.html', restaurant=restaurant)
     if request.method == 'POST':
         pass

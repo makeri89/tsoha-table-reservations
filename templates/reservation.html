@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang='fi'>
+<head>
+  <meta charset='UTF-8'>
+  <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+  <link rel='stylesheet' type='text/css' href='static/style.css'>
+  <title>Tee varaus</title>
+</head>
+<body>
+  <a href='/'>Etusivu</a>
+  <h1>Tee varaus ravintolaan {{ restaurant.name }}</h1>
+  <form action='/restaurant/reservation/{{ restaurant.id }}'>
+    <label for='pax'>Henkilömäärä: </label>
+    <input type='number' id='pax' name='pax' required>
+    <br>
+    <label for='date'>Päivämäärä: </label>
+    <input type='date' name='date' id='date'>
+    <br>
+    <label for='starttime'>Kellonaika: </label>
+    <select name='starttime' id='starttime'>
+      <option value='18'>18:00</option>
+      <option value='1830'>18:30</option>
+      <option value='19'>19:00</option>
+      <option value='1930'>19:30</option>
+    </select>
+    <br>
+    <label for='allergies'>Allergiat:</label>
+    <input type='text' name='allergies' id='allergies'>
+    <br>
+    <label for='wishes'>Muita toiveita ravintolalle:</label>
+    <textarea name='wishes' id='wishes' cols='30' rows='5'></textarea>
+    <br>
+    <input type='submit' value='Tee varaus'>
+  </form>
+</body>
+</html>
