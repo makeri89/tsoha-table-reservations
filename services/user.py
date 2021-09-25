@@ -43,7 +43,7 @@ def set_as_restaurant(user):
 
 def current_user():
     user_id = session['user_id']
-    sql = ('SELECT first_name, last_name, email, username, '
+    sql = ('SELECT id, first_name, last_name, email, username, '
            'isAdmin, isRestaurant FROM users WHERE id=:user_id')
     result = db.session.execute(sql, {'user_id': user_id})
     return result.fetchone()

@@ -6,10 +6,11 @@ from services.search import search
 from services.review import create_review
 from services.auth import remove_tokens, password_check
 
+all_restaurants = get_all_restaurants()
+
 
 @app.route('/')
 def index():
-    all_restaurants = get_all_restaurants()
     return render_template('index.html', restaurants=all_restaurants)
 
 
@@ -48,12 +49,13 @@ def logout():
 @app.route('/review', methods=['GET', 'POST'])
 def review():
     if request.method == 'GET':
-        return render_template('review.html')
+        return render_template('review.html', restaurants=all_restaurants)
     if request.method == 'POST':
-        test_restaurant = 'TestiRavintola'
+        # test_restaurant = 'TestiRavintola'
+        restaurant = request.form['restaurant']
         stars = request.form['stars']
         review_text = request.form['review-text']
-        create_review(test_restaurant, stars, review_text)
+        create_review(restaurant, stars, review_text)
         return redirect('/')
 
 

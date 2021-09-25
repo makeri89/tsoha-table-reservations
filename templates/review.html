@@ -10,6 +10,12 @@
   <a href="/">Etusivu</a>
   <h1>Arvioi ravintola</h1>
   <form action='/review' method='POST'>
+    <label for="restaurant">Valitse ravintola:</label>
+    <select name="restaurant" id="restaurant">
+      {% for restaurant in restaurants %}
+      <option value="{{restaurant.id}}">{{restaurant.name}}</option>
+      {% endfor %}
+    </select>
     <label for='stars'>Arvio:</label>
     <br>
     <span id='star-rating' class='star-rating'>

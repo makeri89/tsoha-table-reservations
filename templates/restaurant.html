@@ -17,5 +17,12 @@
     {% endfor %}
   </ul>
   <a href="/restaurants/reservation/{{ restaurant.id }}">Tee varaus</a>
+  <h3>Aukioloajat</h3>
+  {% for day in restaurant.openinghours %}
+  {% for part in day %}
+  {{ part }}
+  {% endfor %}
+  <br>
+  {% endfor %}
 </body>
 </html>
