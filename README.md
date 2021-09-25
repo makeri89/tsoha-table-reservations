@@ -42,9 +42,11 @@ Tällä hetkellä toimivat toiminnallisuudet on merkitty yllä :heavy_check_mark
 
 Sovellus löytyy Herokussa osoitteesta [https://tsoha-table-reservations.herokuapp.com](https://tsoha-table-reservations.herokuapp.com/). Sovellukseen voi etusivulta luoda uudet tunnukset tai halutessaan kirjautua kehitysvaiheen tietokannassa olevalla ylläpitäjäkäyttäjällä, tunnuksilla admin:admin.
 
+Kaikkiin toiminnallisuuksiin pääsee tällä hetkelä suoraan etusivulla olevista linkeistä.
+
 ## Sovelluksen käyttäminen paikallisesti
 
-Sovellus vaatii toimiakseen paikallisen PostgreSQL-tietokannan. Jos koneellasi ei ole PostgrSQL:ää, voit asentaa sen esimerkiksi [tällä](https://github.com/hy-tsoha/local-pg) skriptillä. Tietokannan tulee olla käynnissä sovellusta käytettäessä.
+Sovellus vaatii toimiakseen paikallisen PostgreSQL-tietokannan. Jos koneellasi ei ole PostgrSQL:ää, voit asentaa sen esimerkiksi [tällä](https://github.com/hy-tsoha/local-pg) skriptillä. Tietokannan tulee olla käynnissä sovellusta käytettäessä. Jos käytit asentamiseen edellä mainittua skriptiä, saat tietokannan käyntiin komennolla `start-pg.sh`.
 
 Lataa tai kloonaa tämä repositorio koneellesi ja siirry komentorivillä sen juurikansioon:
 

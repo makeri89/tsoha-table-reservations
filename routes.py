@@ -11,7 +11,7 @@ all_restaurants = get_all_restaurants()
 
 @app.route('/')
 def index():
-    return render_template('index.html', restaurants=all_restaurants)
+    return render_template('index.html', restaurants=get_all_restaurants())
 
 
 @app.route('/signup', methods=['GET', 'POST'])
@@ -49,9 +49,8 @@ def logout():
 @app.route('/review', methods=['GET', 'POST'])
 def review():
     if request.method == 'GET':
-        return render_template('review.html', restaurants=all_restaurants)
+        return render_template('review.html', restaurants=get_all_restaurants())
     if request.method == 'POST':
-        # test_restaurant = 'TestiRavintola'
         restaurant = request.form['restaurant']
         stars = request.form['stars']
         review_text = request.form['review-text']
