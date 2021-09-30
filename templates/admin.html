@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %}Hallintapaneeli{% endblock %}
+
+{% block content %}
+<h2>Hallintapaneeli</h2>
+Anna käyttäjälle ravintolakäyttäjän oikeudet
+<form action='/setasrestaurant' method='POST'>
+  <select name='user' id='user'>
+    {% for user in users %}
+    <option value={{ user.id }}>{{ user.username }}</option>
+    {% endfor %}
+  </select>
+  <br>
+  <input type='submit' value='Vahvista'>
+</form>
+{% endblock %}

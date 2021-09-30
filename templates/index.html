@@ -1,39 +1,30 @@
-<!DOCTYPE html>
-<html lang='fi'>
-
-<head>
-  <title>Etusivu</title>
-  <meta name='viewport' content='width=device-width, initial-scale=1'>
-  <link rel='stylesheet' type='text/css' href='static/style.css'>
-</head>
-
-<body>
-  <h1>Pöytävaraus</h1>
-  {% if session.user_id %}
-  <h2>Tervetuloa, {{ session.username }}</h2>
-  <a href="/logout">Kirjaudu ulos</a>
-  {% else %}
-  <a href='/login'>Kirjaudu sisään</a>
+{% extends 'base.html' %}
+{% block content %}
+{% if session.user_id %}
+<h2>Tervetuloa, {{ session.username }}</h2>
+<a href="/logout">Kirjaudu ulos</a>
+{% else %}
+<a href='/login'>Kirjaudu sisään</a>
+<br>
+<a href='/signup'>Luo tunnus</a>
+<br>
+{% endif %}
+<div style='padding-top:30px'></div>
+<a href='/admin'>Hallintapaneeli</a>
+<br>
+<a href='/review'>Kirjoita arvostelu</a>
+<br>
+<h3>Ravintolat</h3>
+<ul>
+  {% for restaurant in restaurants %}
+  <li><a href=/restaurants/{{ restaurant.id }}>{{ restaurant.name }}</a></li>
+  {% endfor %}
+</ul>
+<br>
+<h3>Hae ravintoloita</h3>
+<form action='/result' method='GET'>
+  Hakusana: <input type='text' name='query'>
   <br>
-  <a href='/signup'>Luo tunnus</a>
-  <br>
-  {% endif %}
-  <div style='padding-top:30px'></div>
-  <a href='/review'>Kirjoita arvostelu</a>
-  <br>
-  <h3>Ravintolat</h3>
-  <ul>
-    {% for restaurant in restaurants %}
-    <li><a href=/restaurants/{{ restaurant.id }}>{{ restaurant.name }}</a></li>
-    {% endfor %}
-  </ul>
-  <br>
-  <h3>Hae ravintoloita</h3>
-  <form action='/result' method='GET'>
-    Hakusana: <input type='text' name='query'>
-    <br>
-    <input type='submit' value='Hae'>
-  </form>
-</body>
-
-</html>
+  <input type='submit' value='Hae'>
+</form>
+{% endblock %}

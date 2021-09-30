@@ -36,9 +36,10 @@ def is_restaurant():
     return result.fetchone()[0]
 
 
-def set_as_restaurant(user):
+def set_as_restaurant(user_id):
     sql = 'UPDATE users SET isRestaurant=TRUE WHERE id=:user_id'
-    db.session.execute(sql, {'user_id': user.id})
+    db.session.execute(sql, {'user_id': user_id})
+    db.session.commit()
 
 
 def current_user():
@@ -53,4 +54,11 @@ def get_user_restaurants():
     user = current_user()
     sql = 'SELECT * FROM restaurants WHERE owner=:user_id'
     result = db.session.execute(sql, {'user_id': user.id})
+    return result.fetchall()
+
+
+def get_all_non_restaurant_users():
+    sql = ('SELECT id, first_name, last_name, username, email '
+           'FROM users WHERE isRestaurant=FALSE')
+    result = db.session.execute(sql)
     return result.fetchall()

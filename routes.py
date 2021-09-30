@@ -1,6 +1,6 @@
-from flask import render_template, request, redirect
+from flask import render_template, request, redirect, Response
 from app import app
-from services.user import create_user
+from services.user import create_user, set_as_restaurant, get_all_non_restaurant_users
 from services.restaurant import get_restaurant_info, get_restaurant_menu, get_all_restaurants
 from services.search import search
 from services.review import create_review
@@ -82,3 +82,22 @@ def reservation(id):
         return render_template('reservation.html', restaurant=restaurant)
     if request.method == 'POST':
         pass
+
+
+@app.route('/admin', methods=['GET'])
+def admin():
+    users = get_all_non_restaurant_users()
+    print(users)
+    return render_template('admin.html', users=users)
+
+
+@app.route('/setasrestaurant', methods=['POST'])
+def setasrestaurant():
+    user_id = request.form['user']
+    set_as_restaurant(user_id)
+    return redirect('/admin')
+
+
+@app.route('/teapot', methods=['GET'])
+def teapot():
+    return Response(status=418, response="<h1>418. I'm a teapot!</h1>")

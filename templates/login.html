@@ -1,25 +1,17 @@
-<!DOCTYPE html>
-<html lang='fi'>
+{% extends 'base.html' %}
 
-<head>
-  <title>Kirjaudu sisään</title>
-  <meta name='viewport' content='width=device-width, initial-scale=1'>
-  <link rel='stylesheet' type='text/css' href='static/style.css'>
-</head>
+{% block title %}Kirjaudu sisään{% endblock %}
 
-<body>
-  <a href="/">Etusivu</a>
-  <h1>Kirjaudu sisään</h1>
-  <form action='/login' method='POST'>
-    <label for="username">Käyttäjätunnus:</label>
-    <input type='text' name='username' id='username'>
-    <br>
-    <label for="password">Salasana:</label>
-    <input type="password" name='password' id='passsword'>
-    <br>
-    <input type="submit" value='Kirjaudu'>
-  </form>
-  <a href="/signup">Luo tunnus</a>
-</body>
-
-</html>
+{% block content %}
+<h1>Kirjaudu sisään</h1>
+<form action='/login' method='POST'>
+  <label for="username">Käyttäjätunnus:</label>
+  <input type='text' name='username' id='username'>
+  <br>
+  <label for="password">Salasana:</label>
+  <input type="password" name='password' id='passsword'>
+  <br>
+  <input type="submit" value='Kirjaudu'>
+</form>
+<a href="/signup">Luo tunnus</a>
+{% endblock %}

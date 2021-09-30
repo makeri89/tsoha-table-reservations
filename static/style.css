@@ -14,3 +14,13 @@ form {
   justify-content: center;
   text-align: center;
 }
+
+footer {
+  position: absolute;
+  bottom: 0;
+}
+
+header a {
+  text-decoration: none;
+  color: black;
+}

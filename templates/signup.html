@@ -1,34 +1,26 @@
-<!DOCTYPE html>
-<html lang='fi'>
+{% extends 'base.html' %}
 
-<head>
-  <title>Luo tunnus</title>
-  <meta name='viewport' content='width=device-width, initial-scale=1'>
-  <link rel='stylesheet' type='text/css' href='static/style.css'>
-</head>
+{% block title %}Luo tunnus{% endblock %}
 
-<body>
-  <a href="/">Etusivu</a>
-  <h1>Luo käyttäjätunnus</h1>
-  <form action='/signup' method='POST'>
-    <label for="firstname">Etunimi:</label>
-    <input type='text' name='firstname' placeholder='Etunimi' id='firstname' required>
-    <br>
-    <label for="lastname">Sukunimi:</label>
-    <input type='text' name='lastname' placeholder='Sukunimi' id='lastname' required>
-    <br>
-    <label for="email">Sähköposti:</label>
-    <input type='email' name='email' placeholder='Sähköposti' id='email' required>
-    <br>
-    <label for="username">Käyttäjätunnus:</label>
-    <input type='text' name='username' placeholder='Käyttäjätunnus' id='username' required>
-    <br>
-    <label for="password">Salasana:</label>
-    <input type='password' name='password' placeholder='Salasana' id='password' required>
-    <br>
-    <input type='submit' value='Luo tunnus'>
-  </form>
-  <a href="/login">Kirjaudu sisään</a>
-</body>
-
-</html>
+{% block content}
+<h1>Luo käyttäjätunnus</h1>
+<form action='/signup' method='POST'>
+  <label for="firstname">Etunimi:</label>
+  <input type='text' name='firstname' placeholder='Etunimi' id='firstname' required>
+  <br>
+  <label for="lastname">Sukunimi:</label>
+  <input type='text' name='lastname' placeholder='Sukunimi' id='lastname' required>
+  <br>
+  <label for="email">Sähköposti:</label>
+  <input type='email' name='email' placeholder='Sähköposti' id='email' required>
+  <br>
+  <label for="username">Käyttäjätunnus:</label>
+  <input type='text' name='username' placeholder='Käyttäjätunnus' id='username' required>
+  <br>
+  <label for="password">Salasana:</label>
+  <input type='password' name='password' placeholder='Salasana' id='password' required>
+  <br>
+  <input type='submit' value='Luo tunnus'>
+</form>
+<a href="/login">Kirjaudu sisään</a>
+{% endblock %}

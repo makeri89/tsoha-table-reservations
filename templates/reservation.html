@@ -1,13 +1,8 @@
-<!DOCTYPE html>
-<html lang='fi'>
-<head>
-  <meta charset='UTF-8'>
-  <meta name='viewport' content='width=device-width, initial-scale=1.0'>
-  <link rel='stylesheet' type='text/css' href='static/style.css'>
-  <title>Tee varaus</title>
-</head>
-<body>
-  <a href='/'>Etusivu</a>
+{% extends 'base.html' %}
+
+{% block title %}Tee varaus{% endblock %}
+
+{% block content %}
   <h1>Tee varaus ravintolaan {{ restaurant.name }}</h1>
   <form action='/restaurant/reservation/{{ restaurant.id }}'>
     <label for='pax'>Henkilömäärä: </label>
@@ -32,5 +27,4 @@
     <br>
     <input type='submit' value='Tee varaus'>
   </form>
-</body>
-</html>
+{% endblock %}
