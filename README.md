@@ -10,9 +10,10 @@ Erilaisia käyttäjärooleja on kolme: ylläpitäjä, ravintola ja asiakas.
 
 - luoda uuden peruskäyttäjätunnuksen sekä kirjautua sisään ja ulos :heavy_check_mark:
 - nähdä listan ravintoloista, jotka ovat listautuneet sovellukseen :heavy_check_mark:
-  - nähdä tietoja ravintoloista, kuten aukioloajat, ruokalistan ja pöytävarauskalenterin
+  - nähdä tietoja ravintoloista, kuten aukioloajat, ruokalistan ja pöytävarauskalenterin ✔️
 - luoda arvioita ravintoloille :heavy_check_mark:
 - etsiä ravintoloita hakusanalla :heavy_check_mark:
+- tehdä pöytävarauksia ✔️
 
 ### Ravintolakäyttäjä voi
 
@@ -23,7 +24,7 @@ Erilaisia käyttäjärooleja on kolme: ylläpitäjä, ravintola ja asiakas.
 
 ### Ylläpitäjä voi
 
-- luoda ravintolakäyttäjän tunnuksia
+- antaa käyttäjälle ravintolakäyttäjän oikeudet ✔️
 - poistaa ravintoloita palvelusta
 - poistaa ravintola-arvioita
 - tehdä kaikkea, mitä asiakas- ja ravintolakäyttäjätkin :heavy_check_mark:
@@ -32,11 +33,8 @@ Tällä hetkellä toimivat toiminnallisuudet on merkitty yllä :heavy_check_mark
 
 #### Suurimmat puutteet sovelluksen toimintalogiikassa ovat tällä hetkellä
 
-- pöytävarausten tekeminen
-  - toteutus backendiin
-  - kalenteri
 - ravintolakäyttäjän hallintapaneeli
-- ylläpitäjän hallintapaneeli
+- ylläpitäjän hallintapaneelin loput toiminnalisuudet
 
 ## Sovelluksen testaaminen Herokussa
 
