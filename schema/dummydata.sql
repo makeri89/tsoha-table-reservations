@@ -8,7 +8,7 @@ INSERT INTO users (first_name, last_name, email, username, password, isAdmin, is
   'pbkdf2:sha256:260000$O7N92e8ker9YRXG5$9f1e07ecec82dbbb4954940edbf1ef6d0f2bb0d9a5bf7a02d6b352a57dd5631d',
   FALSE, TRUE);
 
-INSERT INTO restaurants (name, owner, address, openingHours) VALUES 
+INSERT INTO restaurants (name, owner, address, openingHours, serviceTimes) VALUES 
   ('Restaurant Test',
   2, '11 Test Avenue, 00100 Helsinki',
   '{{"mon","12:00","20:00"},
@@ -17,7 +17,12 @@ INSERT INTO restaurants (name, owner, address, openingHours) VALUES
   {"thu","12:00","22:00"},
   {"fri","12:00","22:00"},
   {"sat","-","-"},
-  {"sun","-","-"}}'),
+  {"sun","-","-"}}',
+  '{{"mon","12:00", "13:00", "14:00", "17:00", "20:00"},
+  {"tue","12:00", "13:00", "14:00", "17:00", "20:00"},
+  {"wed","12:00", "13:00", "14:00", "17:00", "20:00"},
+  {"thu","12:00", "13:00", "14:00", "18:00", "21:00"},
+  {"fri","12:00", "13:00", "14:00", "18:00", "21:00"}}'),
   ('Restaurant Test2',
   2, '22 Test Street, 00200 Helsinki',
   '{{"mon","12:00","16:00"},
@@ -26,7 +31,14 @@ INSERT INTO restaurants (name, owner, address, openingHours) VALUES
   {"thu","12:00","22:00"},
   {"fri","12:00","22:00"},
   {"sat","14:00","22:00"},
-  {"sun","11:00","16:00"}}');
+  {"sun","11:00","16:00"}}',
+  '{{"mon","12:00", "13:00", "14:00", "-", "-"},
+  {"tue","12:00", "13:00", "14:00", "-", "-"},
+  {"wed","12:00", "13:00", "14:00", "-", "-"},
+  {"thu","12:00", "13:00", "14:00", "18:00", "21:00"},
+  {"fri","12:00", "13:00", "14:00", "18:00", "21:00"},
+  {"sat","14:00", "18:00", "21:00", "-", "-"},
+  {"sun","11:00","12:00", "13:00", "14:00", "-"}}');
 
 INSERT INTO tables (size, restaurant) VALUES
   (2,1),(2,1),(2,1),(2,1),(4,1),(4,1),

@@ -1,7 +1,12 @@
 from flask import render_template, request, redirect, Response
 from app import app
-from services.user import create_user, set_as_restaurant, get_all_non_restaurant_users
-from services.restaurant import get_restaurant_info, get_restaurant_menu, get_all_restaurants
+from services.reservation import create_reservation
+from services.user import (create_user, set_as_restaurant,
+                           get_all_non_restaurant_users)
+from services.restaurant import (get_restaurant_info,
+                                 get_restaurant_menu,
+                                 get_all_restaurants,
+                                 get_available_capacity)
 from services.search import search
 from services.review import create_review
 from services.auth import remove_tokens, password_check
@@ -75,19 +80,53 @@ def result():
     return render_template('result.html', results=search_result)
 
 
-@app.route('/restaurants/reservation/<int:id>', methods=['GET', 'POST'])
+@app.route('/restaurants/reservation/<int:id>', methods=['GET'])
 def reservation(id):
     restaurant = get_restaurant_info(id)
-    if request.method == 'GET':
-        return render_template('reservation.html', restaurant=restaurant)
-    if request.method == 'POST':
-        pass
+    return render_template('reservation.html', restaurant=restaurant, error=0)
+
+
+@app.route('/restaurants/reservation/<int:id>/fail', methods=['GET'])
+def failed_reservation(id):
+    restaurant = get_restaurant_info(id)
+    return render_template('reservation.html', restaurant=restaurant, error=1)
+
+
+@app.route('/restaurants/reservation/<int:id>/confirm', methods=['GET', 'POST'])
+def confirm(id):
+    restaurant_id = id
+    pax = request.args['pax']
+    date = request.args['date']
+    time = request.args['starttime']
+    if len(get_available_capacity(restaurant_id, date, time, pax)) > 0:
+        restaurant = get_restaurant_info(id)
+        return render_template('confirmation.html',
+                               restaurant=restaurant,
+                               date=date, time=time, pax=pax)
+    return redirect('/restaurants/reservation/'+str(id)+'/fail')
+
+
+@app.route('/reserve', methods=['POST'])
+def reserve():
+    restaurant_id = request.form['restaurant_id']
+    date = request.form['date']
+    time = request.form['time']
+    pax = request.form['pax']
+    allergies = request.form['allergies']
+    wishes = request.form['wishes']
+    create_reservation(restaurant_id, date, time, pax, allergies, wishes)
+    return redirect('/user/reservations')
+
+
+@app.route('/user/reservations')
+def user_reservations():
+    # TODO: implement this
+    return redirect('/')
 
 
 @app.route('/admin', methods=['GET'])
 def admin():
     users = get_all_non_restaurant_users()
-    print(users)
     return render_template('admin.html', users=users)
 
 
@@ -100,4 +139,4 @@ def setasrestaurant():
 
 @app.route('/teapot', methods=['GET'])
 def teapot():
-    return Response(status=418, response="<h1>418. I'm a teapot!</h1>")
+    return Response(status=418, response="<h1 style='text-align:center'>418. I'm a teapot!</h1>")

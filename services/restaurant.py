@@ -44,3 +44,15 @@ def get_capacity(restaurant_id):
            'GROUP BY size ORDER BY size')
     result = db.session.execute(sql, {'restaurant_id': restaurant_id})
     return result.fetchall()
+
+
+def get_available_capacity(restaurant_id, date, time, party_size):
+    sql = ('SELECT id, size FROM tables WHERE restaurant=:restaurant_id '
+           'AND NOT id IN (SELECT tableId FROM reservations '
+           'WHERE date=:date AND startTime=:time) '
+           'AND size >= :party_size ORDER BY size')
+    result = db.session.execute(sql, {
+        'restaurant_id': restaurant_id,
+        'date': date, 'time': time,
+        'party_size': party_size})
+    return result.fetchall()

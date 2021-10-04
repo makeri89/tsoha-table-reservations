@@ -4,27 +4,26 @@
 
 {% block content %}
   <h1>Tee varaus ravintolaan {{ restaurant.name }}</h1>
-  <form action='/restaurant/reservation/{{ restaurant.id }}'>
+  {% if error == 1 %}
+  <p style='color:red'><strong>Valitsemillasi hakuehdoilla ei löytynyt vapaita pöytiä</strong></p>
+  {% endif %}
+  <form action='/restaurants/reservation/{{ restaurant.id }}/confirm' method='GET'>
     <label for='pax'>Henkilömäärä: </label>
     <input type='number' id='pax' name='pax' required>
     <br>
     <label for='date'>Päivämäärä: </label>
-    <input type='date' name='date' id='date'>
+    <input type='date' name='date' id='date' required oninput="makeReservationDayVisible()">
     <br>
     <label for='starttime'>Kellonaika: </label>
-    <select name='starttime' id='starttime'>
-      <option value='18'>18:00</option>
-      <option value='1830'>18:30</option>
-      <option value='19'>19:00</option>
-      <option value='1930'>19:30</option>
+    {% for day in restaurant.servicetimes %}
+    <select name='starttime' id='starttime' class='reservation_date_picker {{ day[0] }}'>
+      {% for time in day[1:] if time != '-' %}
+      <option value={{ time }}>{{ time }}</option>
+      {% endfor %}
     </select>
+    {% endfor %}
     <br>
-    <label for='allergies'>Allergiat:</label>
-    <input type='text' name='allergies' id='allergies'>
-    <br>
-    <label for='wishes'>Muita toiveita ravintolalle:</label>
-    <textarea name='wishes' id='wishes' cols='30' rows='5'></textarea>
-    <br>
-    <input type='submit' value='Tee varaus'>
+    <input type='submit' value='Tarkista saatavuus'>
   </form>
+  <script src='../../../static/script.js'></script>
 {% endblock %}
