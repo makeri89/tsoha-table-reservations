@@ -36,7 +36,8 @@ Tällä hetkellä toimivat toiminnallisuudet on merkitty yllä :heavy_check_mark
 #### Suurimmat puutteet sovelluksen toimintalogiikassa ovat tällä hetkellä
 
 - ravintolakäyttäjän hallintapaneeli
-- ylläpitäjän hallintapaneelin loput toiminnalisuudet
+- sovelluksen ulkoasun viimeistely
+- virheidenkäsittelyn parantaminen
 
 ## Sovelluksen testaaminen Herokussa
 
@@ -74,6 +75,12 @@ Asenna sitten riippuvuudet komennolla
 
 ```bash
 pip install -r requirements.txt
+```
+
+Luo vielä tietokantataulut (tietokannan tulee olla käynnissä) komennolla
+
+```bash
+psql < schema/schema.sql
 ```
 
 Halutessasi voit luoda tietokantaan testidataa suorittamalla `resetdb.sh` skriptin.
