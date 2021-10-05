@@ -25,7 +25,8 @@ Erilaisia käyttäjärooleja on kolme: ylläpitäjä, ravintola ja asiakas.
 ### Ylläpitäjä voi
 
 - antaa käyttäjälle ravintolakäyttäjän oikeudet ✔️
-- poistaa ravintoloita palvelusta
+- poistaa ravintoloita palvelusta ✔️
+- poistaa käyttäjiä palvelusta ✔️
 - poistaa ravintola-arvioita
 - tehdä kaikkea, mitä asiakas- ja ravintolakäyttäjätkin :heavy_check_mark:
 
