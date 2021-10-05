@@ -14,6 +14,7 @@ Erilaisia käyttäjärooleja on kolme: ylläpitäjä, ravintola ja asiakas.
 - luoda arvioita ravintoloille :heavy_check_mark:
 - etsiä ravintoloita hakusanalla :heavy_check_mark:
 - tehdä pöytävarauksia ✔️
+- tarkastella tekemiään varauksia ja ravintola-arvioita :heavy_check_mark:
 
 ### Ravintolakäyttäjä voi
 

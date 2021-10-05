@@ -56,3 +56,6 @@ INSERT INTO menuItems (title, price, menu, course) VALUES
   ('Jäätelöannos', 6, 1, 3),
   ('Salaatti', 10, 2, 1),
   ('Pizza', 16, 2, 2);
+
+INSERT INTO reservations (restaurant, guest, date, startTime, pax, createdAt, tableId) VALUES
+  (1, 1, TIMESTAMP '2021-10-20', '12:00', 2, NOW(), 1);

@@ -2,7 +2,8 @@
 {% block content %}
 {% if session.user_id %}
 <h2>Tervetuloa, {{ session.username }}</h2>
-<a href="/logout">Kirjaudu ulos</a>
+<a href='/logout'>Kirjaudu ulos</a>
+<a href='/user'>Omat tiedot</a>
 {% else %}
 <a href='/login'>Kirjaudu sisään</a>
 <br>

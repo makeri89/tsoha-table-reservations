@@ -1,14 +1,15 @@
 from flask import render_template, request, redirect, Response
 from app import app
-from services.reservation import create_reservation
+from services.reservation import create_reservation, get_user_reservations
 from services.user import (create_user, set_as_restaurant, get_all_users,
-                           get_all_non_restaurant_users, is_admin, remove_user)
+                           get_all_non_restaurant_users, is_admin, remove_user,
+                           current_user)
 from services.restaurant import (get_restaurant_info,
                                  get_restaurant_menu,
                                  get_all_restaurants,
                                  get_available_capacity, remove_restaurant)
 from services.search import search
-from services.review import create_review
+from services.review import create_review, get_user_reviews
 from services.auth import remove_tokens, password_check
 
 all_restaurants = get_all_restaurants()
@@ -115,13 +116,18 @@ def reserve():
     allergies = request.form['allergies']
     wishes = request.form['wishes']
     create_reservation(restaurant_id, date, time, pax, allergies, wishes)
-    return redirect('/user/reservations')
+    return redirect('/user')
 
 
-@app.route('/user/reservations')
-def user_reservations():
-    # TODO: implement this
-    return redirect('/')
+@app.route('/user', methods=['GET'])
+def user_page():
+    user = current_user()
+    if not user:
+        return redirect('/login')
+    reviews = get_user_reviews(user.id)
+    reservations = get_user_reservations(user.id)
+    return render_template('user.html', user=user,
+                           reviews=reviews, reservations=reservations)
 
 
 @app.route('/admin', methods=['GET'])

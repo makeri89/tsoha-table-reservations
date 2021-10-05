@@ -31,3 +31,10 @@ def get_reservations(restaurant_id):
            'AND U.id=R.guest')
     result = db.session.execute(sql, {'restaurant_id': restaurant_id})
     return result.fetchall()
+
+
+def get_user_reservations(user_id):
+    sql = ('SELECT id, date, startTime, pax, allergies, wishes, createdAt '
+           'FROM reservations WHERE guest=:user_id')
+    result = db.session.execute(sql, {'user_id': user_id})
+    return result.fetchall()

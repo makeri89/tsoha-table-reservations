@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %}Oma sivu{% endblock %}
+
+{% block content %}
+
+<h3>Omat tiedot</h3>
+
+<section>
+  <h4>Tekemäsi arviot</h4>
+  {% for review in reviews %}
+  
+  <p>
+    Ravintola: {{ review.rest_name }}
+    <br>
+    Arvio: {{ review.review }}
+    <br>
+    {{ review.stars }} tähteä
+  </p>
+  
+  {% endfor %}
+</section>
+
+<section>
+  <h4>Pöytävarauksesi</h4>
+  {% for reservation in reservations %}
+  
+  <p>{{ reservation.pax }} henkilöä, {{ reservation.date }}</p>
+  
+  {% endfor %}
+</section>
+
+{% endblock %}
