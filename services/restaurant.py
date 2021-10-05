@@ -56,3 +56,9 @@ def get_available_capacity(restaurant_id, date, time, party_size):
         'date': date, 'time': time,
         'party_size': party_size})
     return result.fetchall()
+
+
+def remove_restaurant(restaurant_id):
+    sql = 'DELETE FROM restaurants WHERE id=:restaurant_id'
+    db.session.execute(sql, {'restaurant_id': restaurant_id})
+    db.session.commit()

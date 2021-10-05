@@ -1,12 +1,12 @@
 from flask import render_template, request, redirect, Response
 from app import app
 from services.reservation import create_reservation
-from services.user import (create_user, set_as_restaurant,
-                           get_all_non_restaurant_users)
+from services.user import (create_user, set_as_restaurant, get_all_users,
+                           get_all_non_restaurant_users, is_admin, remove_user)
 from services.restaurant import (get_restaurant_info,
                                  get_restaurant_menu,
                                  get_all_restaurants,
-                                 get_available_capacity)
+                                 get_available_capacity, remove_restaurant)
 from services.search import search
 from services.review import create_review
 from services.auth import remove_tokens, password_check
@@ -126,8 +126,13 @@ def user_reservations():
 
 @app.route('/admin', methods=['GET'])
 def admin():
-    users = get_all_non_restaurant_users()
-    return render_template('admin.html', users=users)
+    if is_admin():
+        users = get_all_users()
+        non_restaurant_users = get_all_non_restaurant_users()
+        return render_template('admin.html', users=users,
+                               non_restaurant_users=non_restaurant_users,
+                               restaurants=all_restaurants)
+    return render_template('unauthorized.html')
 
 
 @app.route('/setasrestaurant', methods=['POST'])
@@ -135,6 +140,24 @@ def setasrestaurant():
     user_id = request.form['user']
     set_as_restaurant(user_id)
     return redirect('/admin')
+
+
+@app.route('/deleteuser', methods=['POST'])
+def delete_user():
+    if is_admin():
+        user_id = request.form['user']
+        remove_user(user_id)
+        return redirect('/admin')
+    return render_template('unauthorized.html')
+
+
+@app.route('/deleterestaurant', methods=['POST'])
+def delete_restaurant():
+    if is_admin():
+        restaurant_id = request.form['restaurant']
+        remove_restaurant(restaurant_id)
+        return redirect('/admin')
+    return render_template('unauthorized.html')
 
 
 @app.route('/teapot', methods=['GET'])

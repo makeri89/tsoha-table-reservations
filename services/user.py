@@ -23,10 +23,13 @@ def create_user(firstname, lastname, email, username, password):
 
 
 def is_admin():
-    user_id = session['user_id']
-    sql = 'SELECT isAdmin FROM users WHERE id=:user'
-    result = db.session.execute(sql, {'user': user_id})
-    return result.fetchone()[0]
+    try:
+        user_id = session['user_id']
+        sql = 'SELECT isAdmin FROM users WHERE id=:user'
+        result = db.session.execute(sql, {'user': user_id})
+        return result.fetchone()[0]
+    except:
+        return False
 
 
 def is_restaurant():
@@ -57,8 +60,21 @@ def get_user_restaurants():
     return result.fetchall()
 
 
+def get_all_users():
+    sql = ('SELECT id, first_name, last_name, username, email '
+           'isAdmin, isRestaurant FROM users')
+    result = db.session.execute(sql)
+    return result.fetchall()
+
+
 def get_all_non_restaurant_users():
     sql = ('SELECT id, first_name, last_name, username, email '
            'FROM users WHERE isRestaurant=FALSE')
     result = db.session.execute(sql)
     return result.fetchall()
+
+
+def remove_user(user_id):
+    sql = 'DELETE FROM users WHERE id=:user_id'
+    db.session.execute(sql, {'user_id': user_id})
+    db.session.commit()
