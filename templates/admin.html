@@ -3,41 +3,43 @@
 {% block title %}Hallintapaneeli{% endblock %}
 
 {% block content %}
-<h2>Hallintapaneeli</h2>
-<section>
-  <p>Anna käyttäjälle ravintolakäyttäjän oikeudet</p>
-  <form action='/setasrestaurant' method='POST'>
-    <select name='user' id='user'>
-      {% for user in non_restaurant_users %}
-      <option value={{ user.id }}>{{ user.username }}</option>
-      {% endfor %}
-    </select>
-    <br>
-    <input type='submit' value='Vahvista'>
-  </form>
-</section>
-<section>
-  <p>Poista käyttäjä</p>
-  <form action='/deleteuser' method='POST'>
-    <select name='user' id='user'>
-      {% for user in users %}
-      <option value={{ user.id }}>{{ user.username }}</option>
-      {% endfor %}
-    </select>
-    <br>
-    <input type='submit' value='Vahvista'>
-  </form>
-</section>
-<section>
-  <p>Poista ravintola</p>
-  <form action='/deleterestaurant' method='POST'>
-    <select name='restaurant' id='restaurant'>
-      {% for restaurant in restaurants %}
-      <option value={{ restaurant.id }}>{{ restaurant.name }}</option>
-      {% endfor %}
-    </select>
-    <br>
-    <input type='submit' value='Vahvista'>
-  </form>
+<section class='adminpanel'>
+  <h2>Hallintapaneeli</h2>
+  <section>
+    <p>Anna käyttäjälle ravintolakäyttäjän oikeudet</p>
+    <form action='/setasrestaurant' method='POST'>
+      <select name='user' id='user'>
+        {% for user in non_restaurant_users %}
+        <option value={{ user.id }}>{{ user.username }}</option>
+        {% endfor %}
+      </select>
+      <br>
+      <input type='submit' value='Vahvista'>
+    </form>
+  </section>
+  <section>
+    <p>Poista käyttäjä</p>
+    <form action='/deleteuser' method='POST'>
+      <select name='user' id='user'>
+        {% for user in users %}
+        <option value={{ user.id }}>{{ user.username }}</option>
+        {% endfor %}
+      </select>
+      <br>
+      <input type='submit' value='Vahvista'>
+    </form>
+  </section>
+  <section>
+    <p>Poista ravintola</p>
+    <form action='/deleterestaurant' method='POST'>
+      <select name='restaurant' id='restaurant'>
+        {% for restaurant in restaurants %}
+        <option value={{ restaurant.id }}>{{ restaurant.name }}</option>
+        {% endfor %}
+      </select>
+      <br>
+      <input type='submit' value='Vahvista'>
+    </form>
+  </section>
 </section>
 {% endblock %}

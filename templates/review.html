@@ -3,33 +3,35 @@
 {% block title %}Luo arvio{% endblock %}
 
 {% block content %}
-<h1>Arvioi ravintola</h1>
-<form action='/review' method='POST'>
-  <label for="restaurant">Valitse ravintola:</label>
-  <select name="restaurant" id="restaurant">
-    {% for restaurant in restaurants %}
-    <option value="{{restaurant.id}}">{{restaurant.name}}</option>
-    {% endfor %}
-  </select>
-  <label for='stars'>Arvio:</label>
-  <br>
-  <span id='star-rating' class='star-rating'>
-    <input type='radio' name='stars' id='one' value=1>
-    <label for="one">1</label>
-    <input type='radio' name='stars' id='two' value=2>
-    <label for="two">2</label>
-    <input type='radio' name='stars' id='three' value=3>
-    <label for="three">3</label>
-    <input type='radio' name='stars' id='four' value=4>
-    <label for="four">4</label>
-    <input type='radio' name='stars' id='five' value=5>
-    <label for="five">5</label>
-  </span>
-  <br>
-  <label for='review-text'>Kirjoita arvio:</label>
-  <br>
-  <textarea name='review-text' id='review-text' cols='50' rows='12'></textarea>
-  <br>
-  <input type='submit' value='Lähetä'>
-</form>
+<section class='content'>
+  <h1>Arvioi ravintola</h1>
+  <form action='/review' method='POST'>
+    <label for="restaurant">Valitse ravintola:</label>
+    <select name="restaurant" id="restaurant">
+      {% for restaurant in restaurants %}
+      <option value="{{restaurant.id}}">{{restaurant.name}}</option>
+      {% endfor %}
+    </select>
+    <label for='stars'>Arvio:</label>
+    <br>
+    <span id='star-rating' class='star-rating'>
+      <input type='radio' name='stars' id='one' value=1>
+      <label for="one">1</label>
+      <input type='radio' name='stars' id='two' value=2>
+      <label for="two">2</label>
+      <input type='radio' name='stars' id='three' value=3>
+      <label for="three">3</label>
+      <input type='radio' name='stars' id='four' value=4>
+      <label for="four">4</label>
+      <input type='radio' name='stars' id='five' value=5>
+      <label for="five">5</label>
+    </span>
+    <br>
+    <label for='review-text'>Kirjoita arvio:</label>
+    <br>
+    <textarea name='review-text' id='review-text' cols='50' rows='12'></textarea>
+    <br>
+    <input type='submit' value='Lähetä'>
+  </form>
+</section>
 {% endblock %}

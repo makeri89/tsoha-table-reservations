@@ -17,7 +17,8 @@ all_restaurants = get_all_restaurants()
 
 @app.route('/')
 def index():
-    return render_template('index.html', restaurants=get_all_restaurants())
+    admin = is_admin()
+    return render_template('index.html', restaurants=get_all_restaurants(), admin=admin)
 
 
 @app.route('/signup', methods=['GET', 'POST'])

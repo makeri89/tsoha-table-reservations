@@ -3,15 +3,14 @@
 {% block title %}{{ restaurant.name }}{% endblock %}
 
 {% block content %}
-<h1>{{ restaurant.name }}</h1>
-{{ restaurant.address }}
-<h2>Menu</h2>
+<h2>{{ restaurant.name }}</h2>
+<p>{{ restaurant.address }}</p>
+<h3>Menu</h3>
 <ul>
   {% for item in menu %}
   <li>{{ item.title }}, {{ item.price }}e</li>
   {% endfor %}
 </ul>
-<a href="/restaurants/reservation/{{ restaurant.id }}">Tee varaus</a>
 <h3>Aukioloajat</h3>
 {% for day in restaurant.openinghours %}
 {% for part in day %}
@@ -19,4 +18,5 @@
 {% endfor %}
 <br>
 {% endfor %}
+<a href="/restaurants/reservation/{{ restaurant.id }}">Tee varaus</a>
 {% endblock %}

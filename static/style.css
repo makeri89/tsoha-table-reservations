@@ -3,10 +3,34 @@ body {
   flex-direction: column;
   align-items: center;
   text-align: center;
+  font-family: 'Noto Sans Display', sans-serif;
+  font-weight: 300;
+  background-color: antiquewhite;
+  margin: auto;
+  color: #3f3f3f;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 400;
+  color: #222222;
 }
 
 input {
   margin: 3px 0;
+  border-radius: 5px;
+}
+
+a {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
 }
 
 form {
@@ -16,14 +40,59 @@ form {
   text-align: center;
 }
 
+header {
+  position: sticky;
+  top: 0;
+  background-color: antiquewhite;
+  border-bottom: 1px black solid;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
 footer {
-  position: absolute;
+  position: fixed;
   bottom: 0;
+  background-color: antiquewhite;
+  width: 100%;
+  border-top: 1px black solid;
+  padding: 3px;
 }
 
 header a {
   text-decoration: none;
   color: black;
+}
+
+#headertitle {
+  padding: 20px;
+  margin-left: 20px;
+  border-radius: 10px;
+}
+
+#headertitle:hover {
+  color: antiquewhite;
+  background-color: rgba(220, 20, 60, 60%);
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.headerinfo {
+  padding-right: 40px;
+}
+
+.headerinfolink {
+  border: 1px black solid;
+  padding: 5px;
+}
+
+.headerinfolink:hover {
+  color: antiquewhite;
+  background-color: rgba(220, 20, 60, 60%);
 }
 
 .reservation_date_picker {
@@ -32,4 +101,11 @@ header a {
 
 .mon {
   display: block;
+}
+
+.adminpanel section {
+  border: 2px #3f3f3f solid;
+  margin: 10px;
+  padding: 10px;
+  border-radius: 5px;
 }

@@ -1,19 +1,10 @@
 {% extends 'base.html' %}
+
 {% block content %}
-{% if session.user_id %}
-<h2>Tervetuloa, {{ session.username }}</h2>
-<a href='/logout'>Kirjaudu ulos</a>
-<a href='/user'>Omat tiedot</a>
-{% else %}
-<a href='/login'>Kirjaudu sisään</a>
-<br>
-<a href='/signup'>Luo tunnus</a>
-<br>
+{% if admin %}
+<p><a href='/admin'>Hallintapaneeli</a></p>
 {% endif %}
-<div style='padding-top:30px'></div>
-<a href='/admin'>Hallintapaneeli</a>
-<br>
-<a href='/review'>Kirjoita arvostelu</a>
+<p><a href='/review'>Kirjoita arvostelu</a></p>
 <br>
 <h3>Ravintolat</h3>
 <ul>
