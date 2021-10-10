@@ -43,11 +43,11 @@ Tällä hetkellä toimivat toiminnallisuudet on merkitty yllä :heavy_check_mark
 
 ## Sovelluksen testaaminen Herokussa
 
-Sovellus löytyy Herokussa osoitteesta [https://tsoha-table-reservations.herokuapp.com](https://tsoha-table-reservations.herokuapp.com/). Sovelluksen etusivulta pääsee luomaan uudet tunnukset tai halutessaan voi kirjautua kehitysvaiheen tietokannassa olevalla ylläpitäjäkäyttäjällä, tunnuksilla admin:admin.
+Sovellus löytyy Herokussa osoitteesta [https://tsoha-table-reservations.herokuapp.com](https://tsoha-table-reservations.herokuapp.com/). Sovelluksen etusivulta pääsee luomaan uudet tunnukset tai halutessaan voi kirjautua kehitysvaiheen tietokannassa olevalla ylläpitäjäkäyttäjällä, tunnuksilla admin:admin tai ravintolakäyttäjällä tunnuksilla tester:sekret.
 
 Kaikkiin toiminnallisuuksiin pääsee tällä hetkellä suoraan etusivulla olevista linkeistä.
 
-Jos Herokussa oleva sovellus jostain syystä kaatuu sitä testatessasi eikä se enää aukea, voit luoda ongelmasta issuen tähän GitHub-repositorioon. Sovellus on vielä hyvin vahvasti kehitysvaiheessa, joten bugien löytyminen on enemmän kuin todennäköistä.
+Jos Herokussa oleva sovellus jostain syystä kaatuu sitä testatessasi eikä se enää aukea, voit luoda ongelmasta issuen tähän GitHub-repositorioon.
 
 ## Sovelluksen käyttäminen paikallisesti
 
