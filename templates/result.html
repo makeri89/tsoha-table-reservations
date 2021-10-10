@@ -2,11 +2,11 @@
 
 {% block title %}Hakutulokset{% endblock %}
 
-{% block content}
+{% block content %}
 <h1>Hakutulokset</h1>
 <ul>
 {% for result in results %}
-  <li>{{ result.name }}</li>
+  <li><a href='/restaurants/{{ result.id }}'>{{ result.name }}</a></li>
 {% endfor %}
 </ul>
 {% endblock %}
