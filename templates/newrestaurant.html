@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% block title %}Uusi ravintola{% endblock %}
+
+{% block content %}
+
+<h2>Lisää uusi ravintola</h2>
+
+<form action='/newrestaurant' method='POST'>
+  <label for='name'>Ravintolan nimi</label>
+  <input type='text' name='name' id='name'>
+  <label for='address'>Osoite</label>
+  <input type='text' name='address' id='address'>
+  <fieldset>
+    <legend>Aukioloajat</legend>
+    <p>Ravintolan avaus- ja sulkemisaika</p>
+    <label for='mon'>Maanantai</label>
+    <input type='time' name='mon' id='mon' min='00:00' max='24:00'> - 
+    <input type='time' name='monclose' id='monclose' min='00:00' max='24:00'>
+    <br>
+    <label for='tue'>Tiistai</label>
+    <input type='time' name='tue' id='tue' min='00:00' max='24:00'> -
+    <input type='time' name='tueclose' id='tueclose' min='00:00' max='24:00'>
+    <br>
+    <label for='wed'>Keskiviikko</label>
+    <input type='time' name='wed' id='wed' min='00:00' max='24:00'> -
+    <input type='time' name='wedclose' id='wedclose' min='00:00' max='24:00'>
+    <br>
+    <label for='thu'>Torstai</label>
+    <input type='time' name='thu' id='thu' min='00:00' max='24:00'> -
+    <input type='time' name='thuclose' id='thuclose' min='00:00' max='24:00'>
+    <br>
+    <label for='fri'>Perjantai</label>
+    <input type='time' name='fri' id='fri' min='00:00' max='24:00'> -
+    <input type='time' name='friclose' id='friclose' min='00:00' max='24:00'>
+    <br>
+    <label for='sat'>Lauantai</label>
+    <input type='time' name='sat' id='sat' min='00:00' max='24:00'> -
+    <input type='time' name='satclose' id='satclose' min='00:00' max='24:00'>
+    <br>
+    <label for='sun'>Sunnuntai</label>
+    <input type='time' name='sun' id='sun' min='00:00' max='24:00'> -
+    <input type='time' name='sunclose' id='sunclose' min='00:00' max='24:00'>
+  </fieldset>
+  <fieldset>
+    <legend>Kattausajat</legend>
+    <p>Määrittää kellonajat, joihin voi tehdä pöytävarauksia,<br>erottele kellonajat puolipisteellä (;)</p>
+    <label for='mon-servicetimes'>Maanantai</label>
+    <input type='text' name='mon-servicetimes' id='mon-servicetimes' placeholder='12:00;14:00;18:00;19:00'>
+    <br>
+    <label for='tue-servicetimes'>Tiistai</label>
+    <input type='text' name='tue-servicetimes' id='tue-servicetimes' placeholder='12:00;14:00;18:00;19:00'>
+    <br>
+    <label for='wed-servicetimes'>Keskiviikko</label>
+    <input type='text' name='wed-servicetimes' id='wed-servicetimes' placeholder='12:00;14:00;18:00;19:00'>
+    <br>
+    <label for='thu-servicetimes'>Torstai</label>
+    <input type='text' name='thu-servicetimes' id='thu-servicetimes' placeholder='12:00;14:00;18:00;19:00'>
+    <br>
+    <label for='fri-servicetimes'>Perjantai</label>
+    <input type='text' name='fri-servicetimes' id='fri-servicetimes' placeholder='12:00;14:00;18:00;19:00'>
+    <br>
+    <label for='sat-servicetimes'>Lauantai</label>
+    <input type='text' name='sat-servicetimes' id='sat-servicetimes' placeholder='12:00;14:00;18:00;19:00'>
+    <br>
+    <label for='sun-servicetimes'>Sunnuntai</label>
+    <input type='text' name='sun-servicetimes' id='sun-servicetimes' placeholder='12:00;14:00;18:00;19:00'>
+  </fieldset>
+  <input type='submit' value='Lisää ravintola'>
+</form>
+
+{% endblock %}

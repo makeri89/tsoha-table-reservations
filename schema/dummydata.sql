@@ -46,7 +46,7 @@ INSERT INTO tables (size, restaurant) VALUES
   (2,1),(2,1),(2,1),(2,1),(4,1),(4,1),
   (2,2),(2,2),(3,2);
 
-INSERT INTO menus (restaurant) VALUES (1),(2);
+INSERT INTO menus (name, restaurant) VALUES ('Lounas', 1),('Lounas', 2);
 
 INSERT INTO menuCourses (course) VALUES ('starter'),('main'),('dessert');
 

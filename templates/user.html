@@ -4,7 +4,18 @@
 
 {% block content %}
 
-<h3>Omat tiedot</h3>
+<h2>Omat tiedot</h2>
+
+{% if restaurant_status %}
+<h3>Omat ravintolasi</h3>
+<ul>
+  {% for restaurant in restaurants %}
+  <li>{{ restaurant.name }}</li>
+  <a href='/restaurants/{{ restaurant.id }}/admin'>Muokkaa</a>
+  {% endfor %}
+</ul>
+<a href='/newrestaurant'>Lisää uusi ravintola</a>
+{% endif %}
 
 <section>
   <h4>Tekemäsi arviot</h4>

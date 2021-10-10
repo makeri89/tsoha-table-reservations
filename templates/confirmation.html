@@ -19,6 +19,7 @@
   <label for='wishes'>Muita toiveita ravintolalle:</label>
   <textarea name='wishes' id='wishes' cols='30' rows='5'></textarea>
   <input type='submit' value='Vahvista'>
+  <input type='hidden' name='csrf_token' value={{ session.csrf_token }}>
 </form>
 
 {% endblock %}

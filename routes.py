@@ -1,24 +1,33 @@
 from flask import render_template, request, redirect, Response
+
 from app import app
+from utils.format import format_to_psql_array
 from services.reservation import create_reservation, get_user_reservations
-from services.user import (create_user, set_as_restaurant, get_all_users,
-                           get_all_non_restaurant_users, is_admin, remove_user,
-                           current_user)
-from services.restaurant import (get_restaurant_info,
-                                 get_restaurant_menu,
-                                 get_all_restaurants,
-                                 get_available_capacity, remove_restaurant)
 from services.search import search
 from services.review import create_review, get_user_reviews
-from services.auth import remove_tokens, password_check
+from services.auth import remove_tokens, password_check, check_csrf
+from services.user import (create_user,
+                           set_as_restaurant,
+                           get_all_users,
+                           get_all_non_restaurant_users,
+                           is_admin,
+                           remove_user,
+                           current_user,
+                           is_restaurant,
+                           get_user_restaurants)
+from services.restaurant import (add_restaurant, get_restaurant_info,
+                                 get_all_restaurants, add_dish, add_table,
+                                 get_available_capacity, get_restaurant_menus,
+                                 remove_restaurant, get_restaurant_full_menus,
+                                 get_menu_info)
 
 all_restaurants = get_all_restaurants()
 
 
 @app.route('/')
 def index():
-    admin = is_admin()
-    return render_template('index.html', restaurants=get_all_restaurants(), admin=admin)
+    admin_info = is_admin()
+    return render_template('index.html', restaurants=get_all_restaurants(), admin=admin_info)
 
 
 @app.route('/signup', methods=['GET', 'POST'])
@@ -58,6 +67,7 @@ def review():
     if request.method == 'GET':
         return render_template('review.html', restaurants=get_all_restaurants())
     if request.method == 'POST':
+        check_csrf(request.form['csrf_token'])
         restaurant = request.form['restaurant']
         stars = request.form['stars']
         review_text = request.form['review-text']
@@ -71,8 +81,8 @@ def restaurants(id):
     if id is None:
         return redirect('/')
     restaurant = get_restaurant_info(id)
-    menu = get_restaurant_menu(restaurant)
-    return render_template('restaurant.html', restaurant=restaurant, menu=menu)
+    menus = get_restaurant_menus(restaurant.id)
+    return render_template('restaurant.html', restaurant=restaurant, menus=menus)
 
 
 @app.route('/result')
@@ -110,6 +120,7 @@ def confirm(id):
 
 @app.route('/reserve', methods=['POST'])
 def reserve():
+    check_csrf(request.form['csrf_token'])
     restaurant_id = request.form['restaurant_id']
     date = request.form['date']
     time = request.form['time']
@@ -127,8 +138,12 @@ def user_page():
         return redirect('/login')
     reviews = get_user_reviews(user.id)
     reservations = get_user_reservations(user.id)
+    restaurant_status = is_restaurant()
+    user_restaurants = get_user_restaurants(user.id)
     return render_template('user.html', user=user,
-                           reviews=reviews, reservations=reservations)
+                           reviews=reviews, reservations=reservations,
+                           restaurant_status=restaurant_status,
+                           restaurants=user_restaurants)
 
 
 @app.route('/admin', methods=['GET'])
@@ -164,6 +179,77 @@ def delete_restaurant():
         restaurant_id = request.form['restaurant']
         remove_restaurant(restaurant_id)
         return redirect('/admin')
+    return render_template('unauthorized.html')
+
+
+@app.route('/restaurants/<int:id>/admin', methods=['GET'])
+def restaurantadmin(id):
+    if is_restaurant():
+        restaurant_info = get_restaurant_info(id)
+        menus = get_restaurant_menus(id)
+        return render_template('restaurantadmin.html',
+                               restaurant=restaurant_info, menus=menus)
+    return render_template('unauthorized.html')
+
+
+@app.route('/restaurants/<int:restaurant_id>/menu/<int:menu_id>',
+           methods=['GET'])
+def show_menu(restaurant_id, menu_id):
+    restaurant_info = get_restaurant_info(restaurant_id)
+    menu_info = get_menu_info(menu_id)
+    return render_template('menu.html',
+                           restaurant=restaurant_info, menu=menu_info)
+
+
+@app.route('/newrestaurant', methods=['GET', 'POST'])
+def newrestaurant():
+    if is_restaurant():
+        if request.method == 'GET':
+            return render_template('newrestaurant.html')
+        if request.method == 'POST':
+            name = request.form['name']
+            address = request.form['address']
+            weekdays = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun']
+            openinghours = [[i, request.form[i],  request.form[i+'close']]
+                            for i in weekdays]
+            openinghours = format_to_psql_array(openinghours)
+            servicetimes = [[i] for i in weekdays]
+            for _ in range(10):
+                for j in servicetimes:
+                    j.append('-')
+            for i, value in enumerate(weekdays):
+                data = request.form[value+'-servicetimes'].split(';')
+                for j, val in enumerate(data):
+                    servicetimes[i][j+1] = val
+            servicetimes = format_to_psql_array(servicetimes)
+            owner = current_user().id
+            add_restaurant(name, owner, address, openinghours, servicetimes)
+            return redirect('/user')
+    return render_template('unauthorized.html')
+
+
+@app.route('/adddish', methods=['POST'])
+def adddish():
+    menu_id = request.form['menu']
+    title = request.form['title']
+    description = request.form['description']
+    price = request.form['price']
+    course = request.form['course']
+    if is_restaurant():
+        add_dish(title, description, price, menu_id, course)
+        return redirect('/user')
+    return render_template('unauthorized.html')
+
+
+@app.route('/addtable', methods=['POST'])
+def addtable():
+    if is_restaurant():
+        restaurant_id = request.form['restaurant']
+        size = request.form['size']
+        amount = request.form['amount']
+        for _ in range(int(amount)):
+            add_table(restaurant_id, size)
+        return redirect('/user')
     return render_template('unauthorized.html')
 
 

@@ -33,10 +33,13 @@ def is_admin():
 
 
 def is_restaurant():
-    user_id = session['user_id']
-    sql = 'SELECT isRestaurant FROM users WHERE id=:user'
-    result = db.session.execute(sql, {'user': user_id})
-    return result.fetchone()[0]
+    try:
+        user_id = session['user_id']
+        sql = 'SELECT isRestaurant FROM users WHERE id=:user'
+        result = db.session.execute(sql, {'user': user_id})
+        return result.fetchone()[0]
+    except:
+        return False
 
 
 def set_as_restaurant(user_id):
@@ -56,10 +59,9 @@ def current_user():
         return False
 
 
-def get_user_restaurants():
-    user = current_user()
+def get_user_restaurants(user_id):
     sql = 'SELECT * FROM restaurants WHERE owner=:user_id'
-    result = db.session.execute(sql, {'user_id': user.id})
+    result = db.session.execute(sql, {'user_id': user_id})
     return result.fetchall()
 
 

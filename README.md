@@ -18,9 +18,11 @@ Erilaisia käyttäjärooleja on kolme: ylläpitäjä, ravintola ja asiakas.
 
 ### Ravintolakäyttäjä voi
 
-- lisätä oman ravintolansa tiedot sovellukseen
+- lisätä oman ravintolansa tiedot sovellukseen :heavy_check_mark:
+- lisätä pöytiä :heavy_check_mark:
 - säätää pöytävarauksien saatavuutta
 - muokata ravintolan tietoja, kuten ruokalistaa
+  - lisätä annoksia :heavy_check_mark:
 - poistaa oman ravintolansa palvelusta
 
 ### Ylläpitäjä voi
@@ -33,9 +35,9 @@ Erilaisia käyttäjärooleja on kolme: ylläpitäjä, ravintola ja asiakas.
 
 Tällä hetkellä toimivat toiminnallisuudet on merkitty yllä :heavy_check_mark: -emojilla.
 
-#### Suurimmat puutteet sovelluksen toimintalogiikassa ovat tällä hetkellä
+#### Suurimmat puutteet sovelluksessa ovat tällä hetkellä
 
-- ravintolakäyttäjän hallintapaneeli
+- ravintolakäyttäjän hallintapaneeli loput toiminnaliisudet
 - sovelluksen ulkoasun viimeistely
 - virheidenkäsittelyn parantaminen
 

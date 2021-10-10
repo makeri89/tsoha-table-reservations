@@ -1,6 +1,19 @@
 # pylint: disable=import-error
-from services.user import is_restaurant
 from db import db
+
+
+def add_restaurant(name, owner, address, openinghours, servicetimes):
+    sql = ('INSERT INTO restaurants '
+           '(name, owner, address, openingHours, serviceTimes) '
+           'VALUES (:name, :owner, :address, :openingHours, :serviceTimes)')
+    db.session.execute(sql, {
+        'name': name,
+        'owner': owner,
+        'address': address,
+        'openingHours': openinghours,
+        'serviceTimes': servicetimes
+    })
+    db.session.commit()
 
 
 def get_restaurant_info(restaurant_id):
@@ -15,27 +28,33 @@ def get_all_restaurants():
     return result.fetchall()
 
 
-def get_restaurant_tables(restaurant):
+def get_restaurant_tables(restaurant_id):
     sql = 'SELECT * FROM tables WHERE restaurant=:restaurant_id'
-    result = db.session.execute(sql, {'restaurant_id': restaurant.id})
+    result = db.session.execute(sql, {'restaurant_id': restaurant_id})
     return result.fetchall()
 
 
-def get_restaurant_menu(restaurant):
-    sql = ('SELECT M.title, M.description, M.price, C.course '
-           'FROM menuItems M, menuCourses C WHERE '
-           'M.menu=(SELECT id FROM menus WHERE restaurant=:restaurant_id) '
-           'and C.id=M.course')
-    result = db.session.execute(sql, {'restaurant_id': restaurant.id})
+def get_restaurant_menus(restaurant_id):
+    sql = 'SELECT * FROM menus WHERE restaurant=:restaurant_id'
+    result = db.session.execute(sql, {'restaurant_id': restaurant_id})
+    return result.fetchall()
+
+
+def get_restaurant_full_menus(restaurant_id):
+    sql = ('SELECT M.menu, menus.name AS menuname, M.title, '
+           'M.description, M.price, C.course '
+           'FROM menuItems M, menuCourses C, menus WHERE '
+           'M.menu IN (SELECT id FROM menus WHERE restaurant=:restaurant_id) '
+           'and C.id=M.course AND menus.id=M.menu ORDER BY M.menu')
+    result = db.session.execute(sql, {'restaurant_id': restaurant_id})
     return result.fetchall()
 
 
 def add_table(restaurant_id, size):
-    if is_restaurant():
-        sql = ('INSERT INTO tables (size, restaurant) '
-               'VALUES (:size, :restaurant_id)')
-        db.session.execute(sql, {'size': size, 'restaurant_id': restaurant_id})
-        db.session.commit()
+    sql = ('INSERT INTO tables (size, restaurant) '
+           'VALUES (:size, :restaurant_id)')
+    db.session.execute(sql, {'size': size, 'restaurant_id': restaurant_id})
+    db.session.commit()
 
 
 def get_capacity(restaurant_id):
@@ -61,4 +80,26 @@ def get_available_capacity(restaurant_id, date, time, party_size):
 def remove_restaurant(restaurant_id):
     sql = 'DELETE FROM restaurants WHERE id=:restaurant_id'
     db.session.execute(sql, {'restaurant_id': restaurant_id})
+    db.session.commit()
+
+
+def get_menu_info(menu_id):
+    sql = ('SELECT menus.name AS menuname, M.title, '
+           'M.description, M.price, C.course '
+           'FROM menuItems M, menuCourses C, menus WHERE '
+           'C.id=M.course AND menus.id=:menu_id AND M.menu=:menu_id '
+           'ORDER BY C.id')
+    result = db.session.execute(sql, {'menu_id': menu_id})
+    return result.fetchall()
+
+
+def add_dish(title, description, price, menu, course):
+    sql = ('INSERT INTO menuItems (title, description, price, menu, course) '
+           'VALUES (:title, :description, :price, :menu, :course)')
+    db.session.execute(sql, {
+        'title': title,
+        'description': description,
+        'price': price,
+        'menu': menu,
+        'course': course})
     db.session.commit()
