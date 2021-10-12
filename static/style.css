@@ -180,3 +180,29 @@ input[type='submit']:hover {
   flex-wrap: wrap;
   justify-content: center;
 }
+
+footer a {
+  text-decoration: none;
+  color: #3f3f3f;
+}
+
+footer a:hover {
+  text-decoration: none;
+  background-color: rgba(220, 20, 60, 40%);
+  padding: 3px 40px;
+  color: antiquewhite;
+}
+
+.button-wrapper {
+  display: inline;
+}
+
+@media screen and (max-width: 768px) {
+  header .button {
+    margin: 20px;
+  }
+  .button-wrapper {
+    display: block;
+    margin: 25px 0 25px 0;
+  }
+}
