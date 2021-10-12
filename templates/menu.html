@@ -4,14 +4,17 @@
 
 {% block content %}
 
-<h2>{{ menu[0].menuname }}</h2>
-
-<ul>
-  {% for item in menu %}
-  <li>{{ item.title }} {{ item.price }}e</li>
-  {% endfor %}
-</ul>
-
-<a href=/restaurants/{{ restaurant.id }}>Palaa ravintolan sivulle</a>
+<section class='outer-container'>
+  <section class='container'>
+    <h2>{{ menu[0].menuname }}</h2>
+  
+    <ul>
+      {% for item in menu %}
+      <li>{{ item.title }} {{ item.price }}e</li>
+      {% endfor %}
+    </ul>
+    <p><a href=/restaurants/{{ restaurant.id }} class='button'>Palaa ravintolan sivulle</a></p>
+  </section>
+</section>
 
 {% endblock %}

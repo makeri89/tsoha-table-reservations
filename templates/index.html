@@ -1,22 +1,27 @@
 {% extends 'base.html' %}
 
 {% block content %}
+
+<h2>Etusivu</h2>
+<section class='outer-container'>
+  <section class='container'>
+    <h2>Ravintolat</h2>
+    <ul>
+      {% for restaurant in restaurants %}
+      <li class='button'><a href=/restaurants/{{ restaurant.id }} class='button'>{{ restaurant.name }}</a></li>
+      {% endfor %}
+    </ul>
+  </section>
+  <section class='container'>
+    <h3>Hae ravintoloita</h3>
+    <form action='/result' method='GET'>
+      <label for='query'>Hakusana</label>
+      <input type='text' name='query' id='query'>
+      <input type='submit' value='Hae' class='button'>
+    </form>
+  </section>
+</section>
 {% if admin %}
-<p><a href='/admin'>Hallintapaneeli</a></p>
+<p><a href='/admin' class='button'>Hallintapaneeli</a></p>
 {% endif %}
-<p><a href='/review'>Kirjoita arvostelu</a></p>
-<br>
-<h3>Ravintolat</h3>
-<ul>
-  {% for restaurant in restaurants %}
-  <li><a href=/restaurants/{{ restaurant.id }}>{{ restaurant.name }}</a></li>
-  {% endfor %}
-</ul>
-<br>
-<h3>Hae ravintoloita</h3>
-<form action='/result' method='GET'>
-  Hakusana: <input type='text' name='query'>
-  <br>
-  <input type='submit' value='Hae'>
-</form>
 {% endblock %}

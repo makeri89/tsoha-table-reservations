@@ -4,14 +4,21 @@
 
 {% block content %}
 <h1>Kirjaudu sisään</h1>
-<form action='/login' method='POST'>
-  <label for="username">Käyttäjätunnus:</label>
-  <input type='text' name='username' id='username' required autofocus>
-  <br>
-  <label for="password">Salasana:</label>
-  <input type="password" name='password' id='password' required>
-  <br>
-  <input type="submit" value='Kirjaudu'>
-</form>
-<a href="/signup">Luo tunnus</a>
+<section class='outer-container'>
+  <section class='container'>
+    {% if error %}
+    <p style='color:red'{{ error }}</p>
+    {% endif %}
+    <form action='/login' method='POST'>
+      <label for="username">Käyttäjätunnus:</label>
+      <input type='text' name='username' id='username' required autofocus>
+      <br>
+      <label for="password">Salasana:</label>
+      <input type="password" name='password' id='password' required>
+      <br>
+      <input type="submit" value='Kirjaudu' class='button'>
+    </form>
+    <a href="/signup" class='button'>Luo tunnus</a>
+  </section>
+</section>
 {% endblock %}

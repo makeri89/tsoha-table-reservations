@@ -5,21 +5,25 @@
 {% block content %}
 <h2>Vahvista varaus</h2>
 
-<p>{{ pax }} henkilöä</p>
-<p>{{ date }}</p>
-<p>{{ time }}</p>
-
-<form action='/reserve' method='POST'>
-  <input type='hidden' name='restaurant_id' value={{ restaurant.id }}>
-  <input type='hidden' name='pax' value={{ pax }}>
-  <input type='hidden' name='date' value={{ date }}>
-  <input type='hidden' name='time' value={{ time }}>
-  <label for='allergies'>Allergiat:</label>
-  <input type='text' id='allergies' name='allergies'>
-  <label for='wishes'>Muita toiveita ravintolalle:</label>
-  <textarea name='wishes' id='wishes' cols='30' rows='5'></textarea>
-  <input type='submit' value='Vahvista'>
-  <input type='hidden' name='csrf_token' value={{ session.csrf_token }}>
-</form>
+<div class='outer-container'>
+  <section class='container'>
+    <p>{{ pax }} henkilöä</p>
+    <p>{{ date }}</p>
+    <p>{{ time }}</p>
+  
+    <form action='/reserve' method='POST'>
+      <input type='hidden' name='restaurant_id' value={{ restaurant.id }}>
+      <input type='hidden' name='pax' value={{ pax }}>
+      <input type='hidden' name='date' value={{ date }}>
+      <input type='hidden' name='time' value={{ time }}>
+      <label for='allergies'>Allergiat:</label>
+      <input type='text' id='allergies' name='allergies'>
+      <label for='wishes'>Muita toiveita ravintolalle:</label>
+      <textarea name='wishes' id='wishes' cols='30' rows='5'></textarea>
+      <input type='submit' value='Vahvista' class='button'>
+      <input type='hidden' name='csrf_token' value={{ session.csrf_token }}>
+    </form>
+  </section>
+</div>
 
 {% endblock %}

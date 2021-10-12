@@ -28,7 +28,7 @@ def is_admin():
         sql = 'SELECT isAdmin FROM users WHERE id=:user'
         result = db.session.execute(sql, {'user': user_id})
         return result.fetchone()[0]
-    except:
+    except KeyError:
         return False
 
 
@@ -38,7 +38,7 @@ def is_restaurant():
         sql = 'SELECT isRestaurant FROM users WHERE id=:user'
         result = db.session.execute(sql, {'user': user_id})
         return result.fetchone()[0]
-    except:
+    except KeyError:
         return False
 
 
@@ -55,7 +55,7 @@ def current_user():
                'isAdmin, isRestaurant FROM users WHERE id=:user_id')
         result = db.session.execute(sql, {'user_id': user_id})
         return result.fetchone()
-    except:
+    except KeyError:
         return False
 
 

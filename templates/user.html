@@ -6,39 +6,42 @@
 
 <h2>Omat tiedot</h2>
 
-{% if restaurant_status %}
-<h3>Omat ravintolasi</h3>
-<ul>
-  {% for restaurant in restaurants %}
-  <li>{{ restaurant.name }}</li>
-  <a href='/restaurants/{{ restaurant.id }}/admin'>Muokkaa</a>
-  {% endfor %}
-</ul>
-<a href='/newrestaurant'>Lisää uusi ravintola</a>
-{% endif %}
-
-<section>
-  <h4>Tekemäsi arviot</h4>
-  {% for review in reviews %}
+<section class='outer-container'>
+  {% if restaurant_status %}
+  <section class='container'>
+    <h3>Omat ravintolasi</h3>
+    <ul>
+      {% for restaurant in restaurants %}
+      <li class='button'>
+        {{ restaurant.name }}
+        <a href='/restaurants/{{ restaurant.id }}/admin' class='button'>Muokkaa</a>
+      </li>
+      {% endfor %}
+    </ul>
+    <a href='/newrestaurant' class='button'>Lisää uusi ravintola</a>
+  </section>
+  {% endif %}
+  <section class='container'>
+    <h4>Tekemäsi arviot</h4>
+    {% for review in reviews %}
+    <p>
+      Ravintola: {{ review.rest_name }}
+      <br>
+      Arvio: {{ review.review }}
+      <br>
+      {{ review.stars }} tähteä
+    </p>
   
-  <p>
-    Ravintola: {{ review.rest_name }}
-    <br>
-    Arvio: {{ review.review }}
-    <br>
-    {{ review.stars }} tähteä
-  </p>
+    {% endfor %}
+  </section>
+  <section class='container'>
+    <h4>Pöytävarauksesi</h4>
+    {% for reservation in reservations %}
   
-  {% endfor %}
-</section>
-
-<section>
-  <h4>Pöytävarauksesi</h4>
-  {% for reservation in reservations %}
+    <p>{{ reservation.pax }} henkilöä, {{ reservation.date }}</p>
   
-  <p>{{ reservation.pax }} henkilöä, {{ reservation.date }}</p>
-  
-  {% endfor %}
+    {% endfor %}
+  </section>
 </section>
 
 {% endblock %}

@@ -4,19 +4,32 @@
 
 {% block content %}
 <h2>{{ restaurant.name }}</h2>
-<p>{{ restaurant.address }}</p>
-<a href="/restaurants/reservation/{{ restaurant.id }}">Tee varaus</a>
-<h3>Menut</h3>
-<ul>
-  {% for menu in menus %}
-  <li><a href='/restaurants/{{ menu.restaurant }}/menu/{{ menu.id }}'>{{ menu.name }}</a></li>
-  {% endfor %}
-</ul>
-<h3>Aukioloajat</h3>
-{% for day in restaurant.openinghours %}
-{% for part in day %}
-{{ part }}
-{% endfor %}
-<br>
-{% endfor %}
+<section class='outer-container'>
+  <section class='container'>
+    <h3>Osoite</h3>
+    <p>{{ restaurant.address }}</p>
+    {% if session.user_id %}
+    <a href="/restaurants/reservation/{{ restaurant.id }}" class='button'>Tee varaus</a>
+    <a href='/review/{{ restaurant.id }}' class='button'>Kirjoita arvio</a>
+    {% endif %}
+  </section>
+  <section class='container'>
+    <h3>Menut</h3>
+    <ul>
+      {% for menu in menus %}
+      <li class='button'><a href='/restaurants/{{ menu.restaurant }}/menu/{{ menu.id }}' class='button'>{{ menu.name }}</a></li>
+      {% endfor %}
+    </ul>
+  </section>
+  <section class='container'>
+    <h3>Aukioloajat</h3>
+    {% for day in restaurant.openinghours %}
+    {% for part in day %}
+    {{ part }}
+    {% endfor %}
+    <br>
+    {% endfor %}
+  </section>
+</section>
+
 {% endblock %}

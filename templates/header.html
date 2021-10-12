@@ -1,16 +1,14 @@
 <header>
-  <a href='/'>
-    <h1 id='headertitle'>Pöytävaraus</h1>
-  </a>
+  <h1><a href='/' id='headertitle'>Pöytävaraus</a></h1>
 {% if session.user_id %}
 <section class='headerinfo'>
-  <p class='headerinfolink'><a href='/logout'>Kirjaudu ulos</a></p>
-  <p class='headerinfolink'><a href='/user'>Omat tiedot</a></p>
+  <a href='/user' class='button'>Omat tiedot</a>
+  <a href='/logout' class='button'>Kirjaudu ulos</a>
 </section>
 {% else %}
 <section class='headerinfo'>
-  <p class='headerinfolink'><a href='/login'>Kirjaudu sisään</a></p>
-  <p class='headerinfolink'><a href='/signup'>Luo tunnus</a></p>
+  <a href='/login' class='button'>Kirjaudu sisään</a>
+  <a href='/signup' class='button'>Luo tunnus</a>
 </section>
 {% endif %}
 </header>

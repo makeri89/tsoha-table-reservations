@@ -26,9 +26,9 @@ def create_reservation(restaurant_id, date, start_time,
 def get_reservations(restaurant_id):
     sql = ('SELECT U.id, U.last_name, R.date, R.startTime, '
            'R.pax, R.allergies, R.wishes, R.createdAt '
-           'FROM reservations R, users U '
-           'WHERE R.restaurant=:restaurant_id '
-           'AND U.id=R.guest')
+           'FROM reservations R JOIN users U '
+           'ON U.id=R.guest '
+           'WHERE R.restaurant=:restaurant_id')
     result = db.session.execute(sql, {'restaurant_id': restaurant_id})
     return result.fetchall()
 

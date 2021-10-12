@@ -103,3 +103,9 @@ def add_dish(title, description, price, menu, course):
         'menu': menu,
         'course': course})
     db.session.commit()
+
+
+def add_menu(restaurant_id, name):
+    sql = 'INSERT INTO menus (name, restaurant) VALUES (:name, :restaurant)'
+    db.session.execute(sql, {'name': name, 'restaurant': restaurant_id})
+    db.session.commit()

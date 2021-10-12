@@ -6,41 +6,58 @@
 
 <h2>Muokkaa ravintolasi {{ restaurant.name }} tietoja</h2>
 
-<h3>Muokkaa menua</h3>
-
-<h4>Lisää annos</h4>
-
-<form action='/adddish' method='POST'>
-  <label for='menu'>Menu</label>
-  <select name='menu' id='menu'>
-    {% for menu in menus %}
-    <option value={{ menu.id }}>{{ menu.name }}</option>
-    {% endfor %}
-  </select>
-  <label for='title'>Annoksen nimi</label>
-  <input type='text' name='title' id='title' required>
-  <label for='description'>Annoksen kuvaus</label>
-  <textarea name='description' id='description' cols='30' rows='5'></textarea>
-  <label for='price'>Annoksen hinta (€)</label>
-  <input type='number' name='price' id='price' step=0.1 required>
-  <label for='course'>Ruokalaji</label>
-  <select name='course' id='course'>
-    <option value=1>Alkuruoka</option>
-    <option value=2>Pääruoka</option>
-    <option value=3>Jälkiruoka</option>
-  </select>
-  <input type='submit' value='Lisää annos'>
-</form>
-
-<h3>Lisää tai poista saatavilla olevia pöytiä</h3>
-
-<form action='/addtable' method='POST'>
-  <input type='hidden' value={{ restaurant.id }} name='restaurant' id='restaurant'>
-  <label for='size'>Pöydän koko</label>
-  <input type='number' name='size' id='size' required>
-  <label for='amount'>Pöytien määrä</label>
-  <input type='number' name='amount' id='amount' required value=1>
-  <input type='submit' value='Lisää pöydät'>
-</form>
+<div class='restaurant-admin-content'>
+  <section class='container'>
+    <h3>Lisää menu</h3>
+  
+    <form action='/addmenu' method='POST'>
+      <input type='hidden' name='restaurant' value={{ restaurant.id }}/>
+      <label for=/name>Menun nimi</label>
+      <input type='text' name='name' id='name' placeholder='Lounaslista' required>
+      <input type='submit' value='Lisää menu' class='button'>
+    </form>
+  </section>
+  
+  <section class='container'>
+    <h3>Muokkaa menua</h3>
+  
+    <h4>Lisää annos</h4>
+  
+    <form action='/adddish' method='POST'>
+      <label for='menu'>Menu</label>
+      <select name='menu' id='menu'>
+        {% for menu in menus %}
+        <option value={{ menu.id }}>{{ menu.name }}</option>
+        {% endfor %}
+      </select>
+      <label for='title'>Annoksen nimi</label>
+      <input type='text' name='title' id='title' required>
+      <label for='description'>Annoksen kuvaus</label>
+      <textarea name='description' id='description' cols='30' rows='5'></textarea>
+      <label for='price'>Annoksen hinta (€)</label>
+      <input type='number' name='price' id='price' step=0.1 required>
+      <label for='course'>Ruokalaji</label>
+      <select name='course' id='course'>
+        <option value=1>Alkuruoka</option>
+        <option value=2>Pääruoka</option>
+        <option value=3>Jälkiruoka</option>
+      </select>
+      <input type='submit' value='Lisää annos' class='button'>
+    </form>
+  </section>
+  
+  <section class='container'>
+    <h3>Lisää tai poista saatavilla olevia pöytiä</h3>
+  
+    <form action='/addtable' method='POST'>
+      <input type='hidden' value={{ restaurant.id }} name='restaurant' id='restaurant'>
+      <label for='size'>Pöydän koko</label>
+      <input type='number' name='size' id='size' required>
+      <label for='amount'>Pöytien määrä</label>
+      <input type='number' name='amount' id='amount' required value=1>
+      <input type='submit' value='Lisää pöydät' class='button'>
+    </form>
+  </section>
+</div>
 
 {% endblock %}

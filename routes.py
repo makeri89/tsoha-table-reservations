@@ -1,4 +1,4 @@
-from flask import render_template, request, redirect, Response
+from flask import render_template, request, redirect, Response, url_for
 
 from app import app
 from utils.format import format_to_psql_array
@@ -18,8 +18,7 @@ from services.user import (create_user,
 from services.restaurant import (add_restaurant, get_restaurant_info,
                                  get_all_restaurants, add_dish, add_table,
                                  get_available_capacity, get_restaurant_menus,
-                                 remove_restaurant, get_restaurant_full_menus,
-                                 get_menu_info)
+                                 remove_restaurant, get_menu_info, add_menu)
 
 all_restaurants = get_all_restaurants()
 
@@ -62,13 +61,14 @@ def logout():
     return redirect('/')
 
 
-@app.route('/review', methods=['GET', 'POST'])
-def review():
+@app.route('/review/<int:id>', methods=['GET', 'POST'])
+def review(id):
+    restaurant_info = get_restaurant_info(id)
     if request.method == 'GET':
-        return render_template('review.html', restaurants=get_all_restaurants())
+        return render_template('review.html', restaurant=restaurant_info)
     if request.method == 'POST':
         check_csrf(request.form['csrf_token'])
-        restaurant = request.form['restaurant']
+        restaurant = restaurant_info.id
         stars = request.form['stars']
         review_text = request.form['review-text']
         create_review(restaurant, stars, review_text)
@@ -94,6 +94,8 @@ def result():
 
 @app.route('/restaurants/reservation/<int:id>', methods=['GET'])
 def reservation(id):
+    if not current_user():
+        return redirect(url_for('login', error='Please log in first!'))
     restaurant = get_restaurant_info(id)
     return render_template('reservation.html', restaurant=restaurant, error=0)
 
@@ -250,6 +252,16 @@ def addtable():
         for _ in range(int(amount)):
             add_table(restaurant_id, size)
         return redirect('/user')
+    return render_template('unauthorized.html')
+
+
+@app.route('/addmenu', methods=['POST'])
+def addmenu():
+    if is_restaurant():
+        restaurant_id = request.form['restaurant'].replace('/', '')
+        name = request.form['name']
+        add_menu(restaurant_id, name)
+        return redirect(f'/restaurants/{restaurant_id}/admin')
     return render_template('unauthorized.html')
 
 
