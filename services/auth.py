@@ -10,7 +10,6 @@ def password_check(username, password):
     result = db.session.execute(sql, {'username': username})
     user = result.fetchone()
     if not user:
-        # TODO: better error handling
         return False
     hash_value = user.password
     if check_password_hash(hash_value, password):

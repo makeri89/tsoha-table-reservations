@@ -17,6 +17,7 @@
         <input type='date' name='date' id='date' required oninput="makeReservationDayVisible()">
         <br>
         <label for='starttime'>Kellonaika: </label>
+        <p id='daynotavailable' style='color:red;display:none'>Ei pöytiä varattavissa tälle päivälle</p>
         {% for day in restaurant.servicetimes %}
         <select name='starttime' id='starttime' class='reservation_date_picker {{ day[0] }}'>
           {% for time in day[1:] if time != '-' %}
@@ -29,5 +30,4 @@
       </form>
     </section>
   </section>
-  <script src='../../../static/script.js'></script>
 {% endblock %}

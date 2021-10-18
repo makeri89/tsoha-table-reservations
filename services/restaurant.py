@@ -109,3 +109,9 @@ def add_menu(restaurant_id, name):
     sql = 'INSERT INTO menus (name, restaurant) VALUES (:name, :restaurant)'
     db.session.execute(sql, {'name': name, 'restaurant': restaurant_id})
     db.session.commit()
+
+
+def find_owner(restaurant_id):
+    sql = 'SELECT owner FROM restaurants WHERE id=:restaurant_id'
+    result = db.session.execute(sql, {'restaurant_id': restaurant_id})
+    return result.fetchone()[0]

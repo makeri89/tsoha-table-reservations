@@ -25,7 +25,7 @@
     <h4>Tekemäsi arviot</h4>
     {% for review in reviews %}
     <p>
-      Ravintola: {{ review.rest_name }}
+      Ravintola: {{ review.name }}
       <br>
       Arvio: {{ review.review }}
       <br>
@@ -38,7 +38,13 @@
     <h4>Pöytävarauksesi</h4>
     {% for reservation in reservations %}
   
-    <p>{{ reservation.pax }} henkilöä, {{ reservation.date }}</p>
+    <p>
+      
+      Ravintolaan <a href='restaurants/{{ reservation.restaurant_id }}'>{{ reservation.name }}</a>
+      <br>
+      {{ reservation.pax }} henkilöä, <span id='res_date'>{{ reservation.date }}</span> klo {{ reservation.starttime }}
+      
+    </p>
   
     {% endfor %}
   </section>

@@ -21,3 +21,27 @@ const makeReservationDayVisible = () => {
     notAvailable.style.display = 'block'
   }
 }
+
+const format_review_value = () => {
+  const rating = document.querySelector('#rating')
+  const float = +rating.firstChild.data
+  rating.textContent = float.toFixed(2)
+}
+
+const format_reservation_date = () => {
+  const date = document.querySelector('#res_date')
+  let formattedDate = date.textContent.split(' ')[0]
+  formattedDate = formattedDate.split('-')
+  formattedDate = `${formattedDate[2]}.${formattedDate[1]}.${formattedDate[0]}`
+  date.textContent = formattedDate
+}
+
+const main = () => {
+  if (window.location.href.includes('restaurants')) {
+    format_review_value()
+  } else if (window.location.href.includes('user')) {
+    format_reservation_date()
+  }
+}
+
+main()

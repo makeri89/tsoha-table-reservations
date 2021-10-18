@@ -6,12 +6,16 @@
 <h2>{{ restaurant.name }}</h2>
 <section class='outer-container'>
   <section class='container'>
-    <h3>Osoite</h3>
-    <p>{{ restaurant.address }}</p>
-    {% if session.user_id %}
-    <a href="/restaurants/reservation/{{ restaurant.id }}" class='button'>Tee varaus</a>
-    <a href='/review/{{ restaurant.id }}' class='button'>Kirjoita arvio</a>
-    {% endif %}
+    <h3>Tietoja</h3>
+    <h4>Osoite</h4>
+    {{ restaurant.address }}
+    <h4>Aukioloajat</h4>
+    {% for day in restaurant.openinghours %}
+    {% for part in day %}
+    {{ part }}
+    {% endfor %}
+    <br>
+    {% endfor %}
   </section>
   <section class='container'>
     <h3>Menut</h3>
@@ -20,15 +24,20 @@
       <li class='button'><a href='/restaurants/{{ menu.restaurant }}/menu/{{ menu.id }}' class='button'>{{ menu.name }}</a></li>
       {% endfor %}
     </ul>
+    {% if session.user_id %}
+    <h3>Toiminnot</h3>
+    <a href="/restaurants/reservation/{{ restaurant.id }}" class='button'>Tee varaus</a>
+    <a href='/review/{{ restaurant.id }}' class='button'>Kirjoita arvio</a>
+    {% endif %}
   </section>
   <section class='container'>
-    <h3>Aukioloajat</h3>
-    {% for day in restaurant.openinghours %}
-    {% for part in day %}
-    {{ part }}
-    {% endfor %}
-    <br>
-    {% endfor %}
+    <h3>Arviot</h3>
+    <h4>Keskimääräinen arvio:</h4>
+    <p><span id='rating'>{{ average_reviews[0] }}</span> tähteä</p>
+    Yhteensä {{ average_reviews[1] }} arviota
+    <h4>Paras arvio:</h4>
+    {{ best_review.stars }} tähteä
+    <a href='/reviews/{{ restaurant.id }}' class='button'>Kaikki arviot</a>
   </section>
 </section>
 

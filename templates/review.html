@@ -6,7 +6,7 @@
 <h1>Arvioi ravintola {{ restaurant.name }}</h1>
 <section class='outer-container'>
   <section class='container'>
-    <form action='/review' method='POST'>
+    <form action='/review/{{ restaurant.id }}' method='POST'>
       <label for='stars'>Arvio:</label>
       <section class='star-rating'>
         <input type='radio' name='stars' id='one' value=1>
@@ -18,7 +18,7 @@
         <input type='radio' name='stars' id='four' value=4>
         <label for="four">4</label>
         <input type='radio' name='stars' id='five' value=5>
-        <label for="five">5</label>
+        <label for="five">5</label> tähteä
       </section>
       <label for='review-text'>Kirjoita arvio:</label>
       <textarea name='review-text' id='review-text' cols='50' rows='12'></textarea>

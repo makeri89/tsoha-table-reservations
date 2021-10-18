@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %}Arviot{% endblock %}
+
+{% block content %}
+
+<h2>Ravintolan {{ reviews[0].name }} arviot</h2>
+
+<section class='outer-container'>
+  {% for review in reviews %}
+  
+  <section class='container'>
+    <h3>Arvio:</h3>
+    <p>{{ review.stars }} tähteä</p>
+    <p>{{ review.review }}</p>
+    {% if admin %}
+    <form action='/deletereview/{{ review.id }}' method='POST'>
+      <input type='submit' value='Poista arvio' class='button'>
+    </form>
+    {% endif %}
+  </section>
+  
+  {% endfor %}
+</section>
+
+{% endblock %}

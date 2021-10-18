@@ -4,7 +4,9 @@ from app import app
 from utils.format import format_to_psql_array
 from services.reservation import create_reservation, get_user_reservations
 from services.search import search
-from services.review import create_review, get_user_reviews
+from services.review import (create_review, get_best_review,
+                             get_restaurant_reviews, get_review_average,
+                             get_user_reviews, remove_review)
 from services.auth import remove_tokens, password_check, check_csrf
 from services.user import (create_user,
                            set_as_restaurant,
@@ -18,7 +20,8 @@ from services.user import (create_user,
 from services.restaurant import (add_restaurant, get_restaurant_info,
                                  get_all_restaurants, add_dish, add_table,
                                  get_available_capacity, get_restaurant_menus,
-                                 remove_restaurant, get_menu_info, add_menu)
+                                 remove_restaurant, get_menu_info, add_menu,
+                                 find_owner)
 
 all_restaurants = get_all_restaurants()
 
@@ -82,7 +85,11 @@ def restaurants(id):
         return redirect('/')
     restaurant = get_restaurant_info(id)
     menus = get_restaurant_menus(restaurant.id)
-    return render_template('restaurant.html', restaurant=restaurant, menus=menus)
+    average_reviews = get_review_average(restaurant.id)
+    best_review = get_best_review(restaurant.id)
+    return render_template('restaurant.html', restaurant=restaurant,
+                           menus=menus, average_reviews=average_reviews,
+                           best_review=best_review)
 
 
 @app.route('/result')
@@ -138,12 +145,12 @@ def user_page():
     user = current_user()
     if not user:
         return redirect('/login')
-    reviews = get_user_reviews(user.id)
+    all_reviews = get_user_reviews(user.id)
     reservations = get_user_reservations(user.id)
     restaurant_status = is_restaurant()
     user_restaurants = get_user_restaurants(user.id)
     return render_template('user.html', user=user,
-                           reviews=reviews, reservations=reservations,
+                           reviews=all_reviews, reservations=reservations,
                            restaurant_status=restaurant_status,
                            restaurants=user_restaurants)
 
@@ -177,10 +184,15 @@ def delete_user():
 
 @app.route('/deleterestaurant', methods=['POST'])
 def delete_restaurant():
-    if is_admin():
-        restaurant_id = request.form['restaurant']
+    user = current_user()
+    restaurant_id = request.form['restaurant']
+    admin_status = is_admin()
+    rest_owner = find_owner(restaurant_id)
+    if admin_status or rest_owner == user.id:
         remove_restaurant(restaurant_id)
-        return redirect('/admin')
+        if admin_status:
+            return redirect('/admin')
+        return redirect('/user')
     return render_template('unauthorized.html')
 
 
@@ -262,6 +274,21 @@ def addmenu():
         name = request.form['name']
         add_menu(restaurant_id, name)
         return redirect(f'/restaurants/{restaurant_id}/admin')
+    return render_template('unauthorized.html')
+
+
+@app.route('/reviews/<int:id>', methods=['GET'])
+def reviews(id):
+    all_reviews = get_restaurant_reviews(id)
+    admin_status = is_admin()
+    return render_template('reviews.html', reviews=all_reviews, admin=admin_status)
+
+
+@app.route('/deletereview/<int:id>', methods=['POST'])
+def delete_review(id):
+    if is_admin():
+        remove_review(id)
+        return redirect('/')
     return render_template('unauthorized.html')
 
 
