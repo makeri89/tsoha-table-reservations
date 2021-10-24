@@ -32,15 +32,9 @@ Erilaisia käyttäjärooleja on kolme: ylläpitäjä, ravintola ja asiakas.
 - poistaa ravintola-arvioita :heavy_check_mark:
 - tehdä kaikkea, mitä asiakas- ja ravintolakäyttäjätkin :heavy_check_mark:
 
-Tällä hetkellä toimivat toiminnallisuudet on merkitty yllä :heavy_check_mark: -emojilla.
-
 ## Sovelluksen testaaminen Herokussa
 
 Sovellus löytyy Herokussa osoitteesta [https://tsoha-table-reservations.herokuapp.com](https://tsoha-table-reservations.herokuapp.com/). Sovelluksen etusivulta pääsee luomaan uudet tunnukset tai halutessaan voi kirjautua kehitysvaiheen tietokannassa olevalla ylläpitäjäkäyttäjällä, tunnuksilla admin:admin tai ravintolakäyttäjällä tunnuksilla tester:sekret.
-
-Kaikkiin toiminnallisuuksiin pääsee tällä hetkellä suoraan etusivulla olevista linkeistä.
-
-Jos Herokussa oleva sovellus jostain syystä kaatuu sitä testatessasi eikä se enää aukea, voit luoda ongelmasta issuen tähän GitHub-repositorioon.
 
 ## Sovelluksen käyttäminen paikallisesti
 
